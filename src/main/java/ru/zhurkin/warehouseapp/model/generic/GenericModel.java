@@ -1,4 +1,4 @@
-package ru.zhurkin.warehouseapp.model;
+package ru.zhurkin.warehouseapp.model.generic;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,9 +8,8 @@ import org.springframework.data.annotation.Id;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Role {
+public class GenericModel {
 
     @Id
-    private Long id;
-    private String roleName;
+    protected Long id;
 }

@@ -24,3 +24,9 @@ server:
   error:
     whitelabel:
       enabled: false
+
+openapi:
+  title: WEB-service for a warehouse
+  description: The service provides a warehouse with complete functionality.
+  name: Nikita Zhurkin
+  email: zhurkin236@gmail.com
