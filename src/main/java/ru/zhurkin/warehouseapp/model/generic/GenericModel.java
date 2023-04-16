@@ -1,15 +1,30 @@
 package ru.zhurkin.warehouseapp.model.generic;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@MappedSuperclass
 @NoArgsConstructor
 public class GenericModel {
 
     @Id
+    @Column(name = "id",
+            unique = true,
+            nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
+
+    @Column(columnDefinition = "varchar(150) default 'Nikita Zhurkin'")
+    protected String createdBy = "Nikita Zhurkin";
+
+    @Column(columnDefinition = "timestamp default now()")
+    protected LocalDateTime createdWhen = LocalDateTime.now();
 }
+
+

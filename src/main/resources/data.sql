@@ -1,9 +1,13 @@
 insert into role (role_name)
 values ('Loader');
 insert into role (role_name)
-values ('Manager');
+values ('Sales Manager');
 insert into role (role_name)
 values ('Moderator');
+insert into role (role_name)
+values ('Collector');
+insert into role (role_name)
+values ('Assistant');
 
 
 insert into status_type (status_name)
@@ -14,9 +18,9 @@ insert into status_type (status_name)
 values ('Closed');
 
 
-insert into action_type (action_name)
+insert into order_type (order_name)
 values ('Import');
-insert into action_type (action_name)
+insert into order_type (order_name)
 values ('Export');
 
 
@@ -35,9 +39,9 @@ values ('loader2', '5678',
 insert into user (login, password,
                   first_name, middle_name, last_name,
                   role_id)
-values ('loader3', '5555',
+values ('collerctor1', '5555',
         'Ivan', 'Ivanovich', 'Ivanov',
-        1);
+        4);
 
 insert into user (login, password,
                   first_name, middle_name, last_name,
@@ -58,83 +62,109 @@ insert into user (login, password,
 values ('moder1', '3333',
         'Nikita', 'Sergeevich', 'Zhurkin',
         3);
+insert into user (login, password,
+                  first_name, middle_name, last_name,
+                  role_id)
+values ('assistant1', '8i88',
+        'Sergey', 'Sergeevich', 'Sergeev',
+        5);
 
 
 insert into product (title, category,
                      description, quantity_left,
-                     measure_unit, price)
+                     measure_unit, price, warehouse_position)
 values ('LG TV', 'Electric device',
         'High quality big TV', 20,
-        'pieces', 25000);
+        'pieces', 25000, 'A1');
 insert into product (title, category,
                      description, quantity_left,
-                     measure_unit, price)
+                     measure_unit, price, warehouse_position)
 values ('Intel Core I9', 'Electric device',
         'Fast and parallel processor', 50,
-        'pieces', 60000);
+        'pieces', 60000, 'A3');
 insert into product (title, category,
                      description, quantity_left,
-                     measure_unit, price)
+                     measure_unit, price, warehouse_position)
 values ('Chair', 'Furniture',
         'Comfortable and soft chair', 35,
-        'pieces', 5000);
+        'pieces', 5000, 'A5');
 insert into product (title, category,
                      description, quantity_left,
-                     measure_unit, price)
+                     measure_unit, price, warehouse_position)
 values ('Peanut', 'Food',
         'Tasty nuts', 2000,
-        'kilograms', 100);
+        'kilograms', 100, 'B2');
 insert into product (title, category,
                      description, quantity_left,
-                     measure_unit, price)
+                     measure_unit, price, warehouse_position)
 values ('Apple juice', 'Food',
         'Tasty green juice', 400,
-        'liters', 120);
+        'liters', 120, 'C4');
 insert into product (title, category,
                      description, quantity_left,
-                     measure_unit, price)
+                     measure_unit, price, warehouse_position)
 values ('Green tea', 'Food',
         'Chinese tea', 300,
-        'packets', 80);
+        'packets', 80, 'A3');
 insert into product (title, category,
                      description, quantity_left,
-                     measure_unit, price)
+                     measure_unit, price, warehouse_position)
 values ('Black tea', 'Food',
         'Indian tea', 200,
-        'packets', 60);
+        'packets', 60, 'F3');
 
 
-insert into action (user_id, product_id, action_type_id, status_type_id,
-                    description, quantity)
-values (1, 1, 1, 2,
-        'description 1', 5);
-insert into action (user_id, product_id, action_type_id, status_type_id,
-                    description, quantity)
-values (2, 1, 2, 2,
-        'description 2', 10);
-insert into action (user_id, product_id, action_type_id, status_type_id,
-                    description, quantity)
-values (3, 2, 1, 2,
-        'description 3', 10);
-insert into action (user_id, product_id, action_type_id,
-                    description, quantity)
-values (1, 3, 2,
-        'description 4', 5);
-insert into action (user_id, product_id, action_type_id,
-                    description, quantity)
-values (1, 4, 1,
-        'description 5', 100);
-insert into action (user_id, product_id, action_type_id,
-                    description, quantity)
-values (3, 5, 1,
-        'description 6', 150);
+insert into `orders` (manager_id, order_type_id, status_type_id,
+                    description)
+values (1, 1, 2,
+        'description 1');
+insert into `orders` (manager_id, order_type_id, status_type_id,
+                    description)
+values (3, 2, 2,
+        'description 2');
+insert into `orders` (manager_id, order_type_id, status_type_id,
+                    description)
+values (2, 1, 2,
+        'description 3');
+insert into `orders` (manager_id, order_type_id, status_type_id,
+                    description)
+values (3, 2, 1,
+        'description 4');
+insert into `orders` (manager_id, order_type_id, status_type_id,
+                    description)
+values (1, 1, 1,
+        'description 5');
+insert into `orders` (manager_id, order_type_id, status_type_id,
+                    description)
+values (3, 1, 1,
+        'description 6');
 
 
-insert into action_details (action_id, seller_id)
+insert into order_products (order_id, product_id, quantity)
+values (1, 1, 5);
+insert into order_products (order_id, product_id, quantity)
+values (1, 2, 5);
+insert into order_products (order_id, product_id, quantity)
+values (1, 3, 7);
+insert into order_products (order_id, product_id, quantity)
+values (2, 1, 7);
+insert into order_products (order_id, product_id, quantity)
+values (2, 4, 200);
+insert into order_products (order_id, product_id, quantity)
+values (3, 5, 50);
+insert into order_products (order_id, product_id, quantity)
+values (4, 4, 46);
+insert into order_products (order_id, product_id, quantity)
+values (5, 6, 20);
+insert into order_products (order_id, product_id, quantity)
+values (6, 7, 10);
+
+
+insert into order_details (order_id, worker_id)
 values (1, 4);
-insert into action_details (action_id, seller_id)
+insert into order_details (order_id, worker_id)
 values (2, 5);
-insert into action_details (action_id, seller_id)
+insert into order_details (order_id, worker_id)
 values (3, 4);
 
 

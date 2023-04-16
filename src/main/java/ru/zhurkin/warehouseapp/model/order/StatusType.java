@@ -1,6 +1,7 @@
-package ru.zhurkin.warehouseapp.model.user;
+package ru.zhurkin.warehouseapp.model.order;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +12,9 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Role {
+public class StatusType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +22,8 @@ public class Role {
     private Long id;
 
     @Column(nullable = false)
-    private String roleName;
+    private String statusName;
 
-    @OneToMany(mappedBy = "role")
-    private Set<User> roleUsers = new HashSet<>();
+    @OneToMany(mappedBy = "statusType")
+    private Set<Order> orders = new HashSet<>();
 }

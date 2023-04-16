@@ -1,9 +1,10 @@
 drop table if exists product_providers;
 drop table if exists provider;
-drop table if exists action_details;
-drop table if exists action;
+drop table if exists order_products;
+drop table if exists order_details;
+drop table if exists `order`;
 drop table if exists product;
-drop table if exists action_type;
+drop table if exists order_type;
 drop table if exists status_type;
 drop table if exists user;
 drop table if exists role;
@@ -35,56 +36,70 @@ create table status_type (
     primary key (id)
 );
 
-create table action_type (
+create table order_type (
     id            bigint          not null auto_increment unique,
-    action_name   varchar(100)    not null,
+    order_name    varchar(100)    not null,
     primary key (id)
 );
 
 create table product (
-    id              bigint          not null auto_increment unique,
-    title           varchar(255)    not null,
-    category        varchar(255),
-    description     varchar(255),
-    quantity_left   integer         not null check (quantity_left >= 0),
-    measure_unit    varchar(100),
-    price           bigint          not null check (price >= 0),
+    id                  bigint          not null auto_increment unique,
+    title               varchar(255)    not null,
+    category            varchar(255),
+    description         varchar(255),
+    quantity_left       integer         not null check (quantity_left >= 0),
+    measure_unit        varchar(100),
+    price               bigint          not null check (price >= 0),
+    warehouse_position  varchar(100),
     primary key (id)
 );
 
-create table action (
+create table `order` (
     id              bigint          not null auto_increment unique,
-    user_id         bigint          not null,
-    product_id      bigint          not null,
-    action_type_id  bigint          not null,
+    manager_id      bigint          not null,
+    order_type_id   bigint          not null,
     status_type_id  bigint          not null default 1,
     description     varchar(255),
-    quantity        integer         not null check (quantity >= 0),
+    is_approved     boolean         not null default false,
     primary key (id),
     constraint fk_action_user_id
-        foreign key (user_id)
+        foreign key (manager_id)
             references user (id),
-    constraint fk_action_product_id
-        foreign key (product_id)
-            references product (id),
     constraint fk_action_type_id
-        foreign key (action_type_id)
-            references action_type (id) on delete cascade,
+        foreign key (order_type_id)
+            references order_type (id) on delete cascade,
     constraint fk_action_status_id
         foreign key (status_type_id)
             references status_type (id) on delete cascade
 );
 
-create table action_details (
-    action_id       bigint      not null,
-    seller_id       bigint      not null,
+
+create table order_products (
+    order_id        bigint      not null,
+    product_id      bigint      not null,
+    quantity        integer     not null check (quantity >= 0),
+    primary key (product_id, order_id),
+    constraint fk_actions_providers
+        foreign key (order_id)
+            references `order` (id) on delete cascade,
+    constraint fk_products_actions
+        foreign key (product_id)
+            references product (id) on delete cascade
+);
+
+
+create table order_details (
+    order_id        bigint      not null,
+    worker_id       bigint      not null,
     close_date      timestamp   default null,
     total_price     bigint      default 0,
-    primary key (action_id, seller_id),
+    primary key (order_id, worker_id),
     constraint fk_details_action
-        foreign key (action_id) references action (id),
+        foreign key (order_id)
+            references `order` (id),
     constraint fk_details_user
-        foreign key (seller_id) references user (id)
+        foreign key (worker_id)
+            references user (id)
 );
 
 create table provider (
@@ -96,12 +111,14 @@ create table provider (
     primary key (id)
 );
 
-create table product_providers(
-    product_id bigint not null,
-    provider_id bigint not null,
+create table product_providers (
+    product_id      bigint      not null,
+    provider_id     bigint      not null,
     primary key (product_id, provider_id),
     constraint fk_providers
-        foreign key (provider_id) references provider (id) on delete cascade,
+        foreign key (provider_id)
+            references provider (id) on delete cascade,
     constraint fk_products
-        foreign key (product_id) references product (id) on delete cascade
+        foreign key (product_id)
+            references product (id) on delete cascade
 );
