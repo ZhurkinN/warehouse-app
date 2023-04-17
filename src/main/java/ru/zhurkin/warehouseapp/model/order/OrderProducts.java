@@ -23,7 +23,7 @@ public class OrderProducts {
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id",
-                nullable = false)
+            nullable = false)
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY,

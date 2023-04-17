@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.ColumnDefault;
 import ru.zhurkin.warehouseapp.model.generic.GenericModel;
 import ru.zhurkin.warehouseapp.model.user.User;
@@ -18,6 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "orders")
+@Accessors(chain = true)
 public class Order extends GenericModel {
 
     @ManyToOne(fetch = FetchType.LAZY)
