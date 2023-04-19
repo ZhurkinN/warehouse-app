@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.webjars.NotFoundException;
+import ru.zhurkin.warehouseapp.support.exception.RolePermissionsException;
 import ru.zhurkin.warehouseapp.support.exception.UserAlreadyExistsException;
 import ru.zhurkin.warehouseapp.support.exception.model.ErrorDTO;
 
@@ -38,5 +39,18 @@ public class GlobalExceptionHandler {
         );
 
         return new ResponseEntity<>(dto, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(RolePermissionsException.class)
+    public ResponseEntity<ErrorDTO> handleRolePermissionsException(RolePermissionsException e,
+                                                                   HttpServletRequest request) {
+        ErrorDTO dto = new ErrorDTO(
+                request.getRequestURI(),
+                e.getMessage(),
+                HttpStatus.UNAUTHORIZED.value(),
+                LocalDateTime.now()
+        );
+
+        return new ResponseEntity<>(dto, HttpStatus.UNAUTHORIZED);
     }
 }

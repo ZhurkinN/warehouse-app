@@ -1,11 +1,11 @@
-package ru.zhurkin.warehouseapp.controller;
+package ru.zhurkin.warehouseapp.controller.generic;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.zhurkin.warehouseapp.model.generic.GenericModel;
-import ru.zhurkin.warehouseapp.service.GenericService;
+import ru.zhurkin.warehouseapp.service.generic.GenericService;
 import ru.zhurkin.warehouseapp.support.dto.generic.GenericDTO;
 import ru.zhurkin.warehouseapp.support.mapper.generic.GenericMapper;
 

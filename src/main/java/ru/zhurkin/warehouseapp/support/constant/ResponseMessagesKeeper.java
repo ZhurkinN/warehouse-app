@@ -29,5 +29,7 @@ public class ResponseMessagesKeeper {
     public static final String ORDER_WAS_DELETED = "Order was deleted!";
 
     public static final String RECORD_WAS_DELETED = "Record was deleted!";
+
+    public static final String WRONG_ROLE_PERMISSIONS = "No permissions to do this!";
 }
 

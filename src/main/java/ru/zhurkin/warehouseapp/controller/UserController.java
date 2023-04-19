@@ -3,6 +3,7 @@ package ru.zhurkin.warehouseapp.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.zhurkin.warehouseapp.controller.generic.GenericController;
 import ru.zhurkin.warehouseapp.model.user.User;
 import ru.zhurkin.warehouseapp.service.UserService;
 import ru.zhurkin.warehouseapp.support.dto.UserBodyDTO;
@@ -23,7 +24,6 @@ public class UserController extends GenericController<UserBodyDTO, User> {
         this.userService = userService;
         this.userMapper = userMapper;
     }
-
 
 
 }

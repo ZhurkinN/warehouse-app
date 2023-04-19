@@ -1,4 +1,4 @@
-package ru.zhurkin.warehouseapp.service;
+package ru.zhurkin.warehouseapp.service.generic;
 
 import ru.zhurkin.warehouseapp.model.generic.GenericModel;
 

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import ru.zhurkin.warehouseapp.model.user.User;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "order_details")
+@Accessors(chain = true)
 public class OrderDetails {
 
     @Id
@@ -32,9 +34,11 @@ public class OrderDetails {
             nullable = false)
     private User worker;
 
-    @Column(nullable = true,
-            columnDefinition = "timestamp default null")
-    private LocalDateTime closeDate = LocalDateTime.now();
+    @Column(columnDefinition = "timestamp default now()")
+    private LocalDateTime startDate = LocalDateTime.now();
+
+    @Column(columnDefinition = "timestamp default null")
+    private LocalDateTime closeDate;
 
     @Column(nullable = false,
             columnDefinition = "bigint default 0")
