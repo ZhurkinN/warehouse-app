@@ -40,6 +40,9 @@ public class User extends GenericModel {
     @OneToMany(mappedBy = "manager")
     private Set<Order> managerOrders = new HashSet<>();
 
+    @OneToMany(mappedBy = "assistant")
+    private Set<Order> assistantOrders = new HashSet<>();
+
     @OneToMany(mappedBy = "worker")
     private Set<OrderDetails> workerOrders = new HashSet<>();
 

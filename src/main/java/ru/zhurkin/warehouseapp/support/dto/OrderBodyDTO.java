@@ -19,6 +19,7 @@ import java.util.Set;
 public class OrderBodyDTO extends GenericDTO {
 
     private Long managerId;
+    private Long assistantId;
     private Long orderTypeId;
     private Long statusTypeId;
     private String description;
@@ -30,6 +31,7 @@ public class OrderBodyDTO extends GenericDTO {
                         String createdBy,
                         LocalDateTime createdWhen,
                         Long managerId,
+                        Long assistantId,
                         Long orderTypeId,
                         Long statusTypeId,
                         String description,
@@ -38,6 +40,7 @@ public class OrderBodyDTO extends GenericDTO {
                         Set<Long> orderDetailIds) {
         super(id, createdBy, createdWhen);
         this.managerId = managerId;
+        this.assistantId = assistantId;
         this.orderTypeId = orderTypeId;
         this.statusTypeId = statusTypeId;
         this.description = description;

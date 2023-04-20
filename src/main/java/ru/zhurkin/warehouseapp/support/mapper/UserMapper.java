@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.webjars.NotFoundException;
 import ru.zhurkin.warehouseapp.model.user.User;
-import ru.zhurkin.warehouseapp.repository.RoleRepository;
+import ru.zhurkin.warehouseapp.repository.user.RoleRepository;
 import ru.zhurkin.warehouseapp.support.dto.UserBodyDTO;
 import ru.zhurkin.warehouseapp.support.mapper.generic.GenericMapper;
 

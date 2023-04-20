@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 import ru.zhurkin.warehouseapp.model.user.User;
-import ru.zhurkin.warehouseapp.repository.RoleRepository;
-import ru.zhurkin.warehouseapp.repository.UserRepository;
+import ru.zhurkin.warehouseapp.repository.user.RoleRepository;
+import ru.zhurkin.warehouseapp.repository.user.UserRepository;
 import ru.zhurkin.warehouseapp.service.generic.GenericService;
 import ru.zhurkin.warehouseapp.support.exception.UserAlreadyExistsException;
 

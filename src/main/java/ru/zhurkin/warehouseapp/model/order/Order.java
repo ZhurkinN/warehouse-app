@@ -27,6 +27,11 @@ public class Order extends GenericModel {
             nullable = false)
     private User manager;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assistant_id",
+            nullable = false)
+    private User assistant;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_type_id",
             nullable = false)

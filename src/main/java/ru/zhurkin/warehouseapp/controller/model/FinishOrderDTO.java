@@ -1,7 +1,7 @@
 package ru.zhurkin.warehouseapp.controller.model;
 
-public record StartOrderDTO(
+public record FinishOrderDTO(
         Long workerId,
-        Long orderId
+        Long orderDetailsId
 ) {
 }

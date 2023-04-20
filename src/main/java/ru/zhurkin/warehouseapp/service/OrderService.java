@@ -9,12 +9,19 @@ import ru.zhurkin.warehouseapp.model.order.OrderDetails;
 import ru.zhurkin.warehouseapp.model.order.OrderProducts;
 import ru.zhurkin.warehouseapp.model.user.Role;
 import ru.zhurkin.warehouseapp.model.user.User;
-import ru.zhurkin.warehouseapp.repository.*;
+import ru.zhurkin.warehouseapp.repository.order.OrderDetailsRepository;
+import ru.zhurkin.warehouseapp.repository.order.OrderRepository;
+import ru.zhurkin.warehouseapp.repository.order.OrderTypeRepository;
+import ru.zhurkin.warehouseapp.repository.order.StatusTypeRepository;
+import ru.zhurkin.warehouseapp.repository.user.UserRepository;
 import ru.zhurkin.warehouseapp.service.generic.GenericService;
 import ru.zhurkin.warehouseapp.support.exception.RolePermissionsException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 import static ru.zhurkin.warehouseapp.model.enums.RoleEnum.COLLECTOR;
 import static ru.zhurkin.warehouseapp.model.enums.RoleEnum.LOADER;
@@ -31,6 +38,7 @@ public class OrderService extends GenericService<Order> {
     private final OrderDetailsRepository orderDetailsRepository;
 
     @Override
+    @Transactional
     public Order add(Order order) {
 
         userRepository.findById(order.getManager().getId())
@@ -39,6 +47,8 @@ public class OrderService extends GenericService<Order> {
                 .orElseThrow(() -> new NotFoundException(ORDER_TYPE_NOT_FOUND));
         statusTypeRepository.findById(order.getStatusType().getId())
                 .orElseThrow(() -> new NotFoundException(STATUS_TYPE_NOT_FOUND));
+        order.setOrderDetails(new HashSet<>());
+        order.setOrderProducts(new ArrayList<>());
 
         return orderRepository.save(order);
     }
@@ -114,10 +124,13 @@ public class OrderService extends GenericService<Order> {
     }
 
     @Transactional
-    public OrderDetails finishOrder(Long orderDetailsId) {
-
+    public OrderDetails finishOrder(Long workerId,
+                                    Long orderDetailsId) {
         OrderDetails orderDetails = orderDetailsRepository.findById(orderDetailsId)
                 .orElseThrow(() -> new NotFoundException(ORDER_NOT_FOUND));
+        if (!Objects.equals(orderDetails.getWorker().getId(), workerId)) {
+            throw new RolePermissionsException(WRONG_ROLE_PERMISSIONS);
+        }
         Order order = orderDetails.getOrder();
         order.setStatusType(statusTypeRepository.findById(3L)
                 .orElseThrow(() -> new NotFoundException(STATUS_TYPE_NOT_FOUND)));
@@ -131,5 +144,31 @@ public class OrderService extends GenericService<Order> {
         User worker = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         return orderDetailsRepository.findAllByWorker(worker);
+    }
+
+    public List<Order> getAssistantsOrders(Long id) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        return orderRepository.findAllByAssistant(user);
+    }
+
+    @Transactional
+    public Order proveOrder(Long assistantId,
+                            Long orderId,
+                            Boolean approved) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new NotFoundException(ORDER_NOT_FOUND));
+        if (!Objects.equals(order.getAssistant().getId(), assistantId)) {
+            throw new RolePermissionsException(WRONG_ROLE_PERMISSIONS);
+        }
+        if (!order.getIsApproved()) {
+            order.setIsApproved(approved);
+            if (!approved) {
+                order.setStatusType(statusTypeRepository.findById(4L)
+                        .orElseThrow(() -> new NotFoundException(STATUS_TYPE_NOT_FOUND)));
+            }
+        }
+        return orderRepository.save(order);
     }
 }

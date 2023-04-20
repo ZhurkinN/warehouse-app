@@ -16,6 +16,8 @@ insert into status_type (status_name)
 values ('Processing');
 insert into status_type (status_name)
 values ('Closed');
+insert into status_type (status_name)
+values ('Declined');
 
 
 insert into order_type (order_name)
@@ -114,29 +116,29 @@ values ('Black tea', 'Food',
         'packets', 60, 'F3');
 
 
-insert into `orders` (manager_id, order_type_id, status_type_id, is_approved,
+insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
                     description)
-values (1, 1, 2, true,
+values (1, 7, 1, 2, true,
         'description 1');
-insert into `orders` (manager_id, order_type_id, status_type_id, is_approved,
-                    description)
-values (3, 2, 2, true,
+insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
+                      description)
+values (3, 7, 2, 2, true,
         'description 2');
-insert into `orders` (manager_id, order_type_id, status_type_id, is_approved,
-                    description)
-values (2, 1, 2, true,
+insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
+                      description)
+values (2, 7, 1, 2, true,
         'description 3');
-insert into `orders` (manager_id, order_type_id, status_type_id, is_approved,
-                    description)
-values (3, 2, 1, true,
+insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
+                      description)
+values (3, 7, 2, 1, true,
         'description 4');
-insert into `orders` (manager_id, order_type_id, status_type_id, is_approved,
-                    description)
-values (1, 1, 1, true,
+insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
+                      description)
+values (1, 7, 1, 1, true,
         'description 5');
-insert into `orders` (manager_id, order_type_id, status_type_id, is_approved,
-                    description)
-values (3, 1, 1, true,
+insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
+                      description)
+values (3, 7, 1, 1, true,
         'description 6');
 
 
