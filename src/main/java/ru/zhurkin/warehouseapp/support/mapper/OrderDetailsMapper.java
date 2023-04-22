@@ -5,7 +5,6 @@ import ru.zhurkin.warehouseapp.model.order.OrderDetails;
 import ru.zhurkin.warehouseapp.support.dto.OrderDetailsBodyDTO;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class OrderDetailsMapper {
@@ -25,7 +24,7 @@ public class OrderDetailsMapper {
 
         return orderDetails.stream()
                 .map(this::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 }

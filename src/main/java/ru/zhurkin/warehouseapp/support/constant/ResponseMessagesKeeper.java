@@ -14,22 +14,20 @@ public class ResponseMessagesKeeper {
     public static final String USER_NOT_FOUND = "User wasn't found!";
 
     /*
-    User's API responses
-     */
-    public static final String USER_WAS_DELETED = "User was successfully deleted!";
-
-    /*
     Order's API errors
      */
     public static final String ORDER_NOT_FOUND = "Order wasn't found!";
     public static final String ORDER_TYPE_NOT_FOUND = "Order type wasn't found!";
     public static final String STATUS_TYPE_NOT_FOUND = "Status type wasn't found!";
     public static final String PRODUCT_NOT_FOUND = "Product wasn't found!";
-
-    public static final String ORDER_WAS_DELETED = "Order was deleted!";
+    public static final String PROVIDER_NOT_FOUND = "Provider wasn't found!";
+    public static final String ORDER_PRODUCTS_NOT_FOUND = "Order with this product wasn't found!";
+    public static final String ORDER_DETAILS_NOT_FOUND = "This order is not in work!";
 
     public static final String RECORD_WAS_DELETED = "Record was deleted!";
 
     public static final String WRONG_ROLE_PERMISSIONS = "No permissions to do this!";
+    public static final String WRONG_PRODUCT_PARAMETERS = "Wrong product's parameter/-s!";
+
 }
 

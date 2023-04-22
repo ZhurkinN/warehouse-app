@@ -14,10 +14,9 @@ import ru.zhurkin.warehouseapp.repository.user.UserRepository;
 import ru.zhurkin.warehouseapp.support.dto.OrderBodyDTO;
 import ru.zhurkin.warehouseapp.support.mapper.generic.GenericMapper;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static ru.zhurkin.warehouseapp.support.constant.ResponseMessagesKeeper.*;
@@ -49,19 +48,21 @@ public class OrderMapper extends GenericMapper<Order, OrderBodyDTO> {
                         .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND)))
                 .setAssistant(userRepository
                         .findById(dto.getAssistantId())
-                        .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND)))
-                .setOrderProducts(dto.getOrderProductIds()
-                        .stream()
-                        .map(orderProductsRepository::findById)
-                        .map(Optional::orElseThrow)
-                        .collect(Collectors.toList()));
-        if (Objects.isNull(dto.getOrderDetailIds()) || dto.getOrderDetailIds().isEmpty()) {
-            order.setOrderDetails(new HashSet<>());
-        } else {
+                        .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND)));
+        order.setOrderProducts(new ArrayList<>());
+        if (!Objects.isNull(dto.getOrderProductIds())) {
+            order.setOrderProducts(dto.getOrderProductIds()
+                    .stream()
+                    .map(orderProductsRepository::findById)
+                    .map(e -> e.orElseThrow(() -> new NotFoundException(ORDER_PRODUCTS_NOT_FOUND)))
+                    .collect(Collectors.toList()));
+        }
+        order.setOrderDetails(new HashSet<>());
+        if (!Objects.isNull(dto.getOrderDetailIds())) {
             order.setOrderDetails(dto.getOrderDetailIds()
                     .stream()
                     .map(orderDetailsRepository::findById)
-                    .map(Optional::orElseThrow)
+                    .map(e -> e.orElseThrow(() -> new NotFoundException(ORDER_DETAILS_NOT_FOUND)))
                     .collect(Collectors.toSet()));
         }
         order.setId(dto.getId());
@@ -73,8 +74,6 @@ public class OrderMapper extends GenericMapper<Order, OrderBodyDTO> {
 
     @Override
     public OrderBodyDTO toDto(Order order) {
-        Set<OrderDetails> orderDetails = order.getOrderDetails().isEmpty()
-                ? new HashSet<>() : order.getOrderDetails();
         return new OrderBodyDTO(
                 order.getId(),
                 order.getCreatedBy(),
@@ -89,7 +88,8 @@ public class OrderMapper extends GenericMapper<Order, OrderBodyDTO> {
                         .stream()
                         .map(OrderProducts::getId)
                         .collect(Collectors.toList()),
-                orderDetails.stream()
+                order.getOrderDetails()
+                        .stream()
                         .map(OrderDetails::getId)
                         .collect(Collectors.toSet()));
     }

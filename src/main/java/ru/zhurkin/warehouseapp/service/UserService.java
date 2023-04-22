@@ -55,9 +55,9 @@ public class UserService extends GenericService<User> {
 
     @Override
     public void delete(Long id) {
-        userRepository.findById(id)
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
-        userRepository.deleteById(id);
+        userRepository.delete(user);
     }
 
 }

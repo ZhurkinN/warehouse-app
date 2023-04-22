@@ -6,6 +6,7 @@ import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import ru.zhurkin.warehouseapp.model.generic.GenericModel;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@Accessors(chain = true)
 public class Provider extends GenericModel {
 
     @Column(nullable = false)

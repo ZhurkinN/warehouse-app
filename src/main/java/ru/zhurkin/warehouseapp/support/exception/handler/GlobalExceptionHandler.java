@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.webjars.NotFoundException;
+import ru.zhurkin.warehouseapp.support.exception.IllegalRequestParameterException;
 import ru.zhurkin.warehouseapp.support.exception.RolePermissionsException;
 import ru.zhurkin.warehouseapp.support.exception.UserAlreadyExistsException;
 import ru.zhurkin.warehouseapp.support.exception.model.ErrorDTO;
@@ -52,5 +53,18 @@ public class GlobalExceptionHandler {
         );
 
         return new ResponseEntity<>(dto, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(IllegalRequestParameterException.class)
+    public ResponseEntity<ErrorDTO> handleIllegalRequestParameterException(IllegalRequestParameterException e,
+                                                                           HttpServletRequest request) {
+        ErrorDTO dto = new ErrorDTO(
+                request.getRequestURI(),
+                e.getMessage(),
+                HttpStatus.CONFLICT.value(),
+                LocalDateTime.now()
+        );
+
+        return new ResponseEntity<>(dto, HttpStatus.CONFLICT);
     }
 }

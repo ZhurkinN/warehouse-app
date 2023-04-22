@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.Check;
 import ru.zhurkin.warehouseapp.model.generic.GenericModel;
 import ru.zhurkin.warehouseapp.model.order.OrderProducts;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@Accessors(chain = true)
 @Entity
 @Check(constraints = "price > 0 and quantity_left >= 0")
 public class Product extends GenericModel {

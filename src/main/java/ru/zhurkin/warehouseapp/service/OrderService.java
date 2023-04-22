@@ -74,9 +74,9 @@ public class OrderService extends GenericService<Order> {
 
     @Override
     public void delete(Long id) {
-        orderRepository.findById(id)
+        Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ORDER_NOT_FOUND));
-        orderRepository.deleteById(id);
+        orderRepository.delete(order);
     }
 
     public List<Order> getAvailableOrders(Long userId) {
