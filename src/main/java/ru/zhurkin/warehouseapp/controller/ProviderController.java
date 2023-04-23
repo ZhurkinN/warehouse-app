@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.zhurkin.warehouseapp.controller.generic.GenericController;
-import ru.zhurkin.warehouseapp.controller.model.AddProductProviderDTO;
+import ru.zhurkin.warehouseapp.controller.model.AddProductToProviderDTO;
 import ru.zhurkin.warehouseapp.model.product.Provider;
 import ru.zhurkin.warehouseapp.service.ProviderService;
 import ru.zhurkin.warehouseapp.support.dto.ProviderBodyDTO;
@@ -31,7 +31,7 @@ public class ProviderController extends GenericController<ProviderBodyDTO, Provi
 
     @PostMapping("/addProduct")
     public ResponseEntity<ProviderBodyDTO> addProvidersProduct(
-            @RequestBody AddProductProviderDTO requestDto) {
+            @RequestBody AddProductToProviderDTO requestDto) {
 
         Provider provider = providerService.addProduct(requestDto.providerId(), requestDto.productId());
         ProviderBodyDTO responseDto = providerMapper.toDto(provider);

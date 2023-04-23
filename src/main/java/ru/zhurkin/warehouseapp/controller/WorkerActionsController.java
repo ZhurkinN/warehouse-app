@@ -9,7 +9,8 @@ import ru.zhurkin.warehouseapp.controller.model.FinishOrderDTO;
 import ru.zhurkin.warehouseapp.controller.model.StartOrderDTO;
 import ru.zhurkin.warehouseapp.model.order.Order;
 import ru.zhurkin.warehouseapp.model.order.OrderDetails;
-import ru.zhurkin.warehouseapp.service.OrderService;
+import ru.zhurkin.warehouseapp.service.OrderDetailsService;
+import ru.zhurkin.warehouseapp.service.ProductService;
 import ru.zhurkin.warehouseapp.support.dto.OrderBodyDTO;
 import ru.zhurkin.warehouseapp.support.dto.OrderDetailsBodyDTO;
 import ru.zhurkin.warehouseapp.support.mapper.OrderDetailsMapper;
@@ -24,7 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WorkerActionsController {
 
-    private final OrderService orderService;
+    private final OrderDetailsService orderDetailsService;
+    private final ProductService productService;
     private final OrderDetailsMapper orderDetailsMapper;
     private final OrderMapper orderMapper;
 
@@ -34,7 +36,7 @@ public class WorkerActionsController {
     public ResponseEntity<OrderDetailsBodyDTO> startWorkingOrder(@RequestBody StartOrderDTO requestDto) {
 
         OrderDetails orderDetails =
-                orderService.startOrder(requestDto.workerId(), requestDto.orderId());
+                orderDetailsService.startOrder(requestDto.workerId(), requestDto.orderId());
         return ResponseEntity.ok(orderDetailsMapper.toDto(orderDetails));
     }
 
@@ -43,18 +45,20 @@ public class WorkerActionsController {
             description = "Finish working on the order after performing")
     public ResponseEntity<OrderDetailsBodyDTO> stopWorkingOrder(@RequestBody FinishOrderDTO requestDto) {
 
-        OrderDetails orderDetails =
-                orderService.finishOrder(requestDto.workerId(), requestDto.orderDetailsId());
+        OrderDetails orderDetails = orderDetailsService.finishOrder(requestDto.workerId(),
+                requestDto.orderDetailsId());
+        productService.setQuantityChanges(requestDto.orderDetailsId());
         return ResponseEntity.ok(orderDetailsMapper.toDto(orderDetails));
     }
 
-    @GetMapping("/all/{id}")
+    @GetMapping("/{id}")
     @Operation(method = "getAllWorkersOrders",
             description = "Get all worker's orders")
-    public ResponseEntity<List<OrderDetailsBodyDTO>> getAllWorkersOrders(@PathVariable Long id) {
+    public ResponseEntity<List<OrderDetailsBodyDTO>> getWorkersOrders(@PathVariable Long id) {
 
-        List<OrderDetails> orders = orderService.getWorkersOrders(id);
-        return ResponseEntity.ok(orderDetailsMapper.toDtos(orders));
+        List<OrderDetails> orders = orderDetailsService.getWorkersOrders(id);
+        List<OrderDetailsBodyDTO> orderDtos = orderDetailsMapper.toDtos(orders);
+        return ResponseEntity.ok(orderDtos);
     }
 
     @GetMapping("/available/{userId}")
@@ -62,7 +66,7 @@ public class WorkerActionsController {
             description = "Get available for working orders")
     public ResponseEntity<List<OrderBodyDTO>> getAvailableWorkingOrders(@PathVariable Long userId) {
 
-        List<Order> orders = orderService.getAvailableOrders(userId);
+        List<Order> orders = orderDetailsService.getAvailableWorkersOrders(userId);
         List<OrderBodyDTO> orderDtos = orderMapper.toDtos(orders);
         return ResponseEntity.ok(orderDtos);
     }

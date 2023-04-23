@@ -24,6 +24,7 @@ public class StatusType {
     @Column(nullable = false)
     private String statusName;
 
-    @OneToMany(mappedBy = "statusType")
+    @OneToMany(mappedBy = "statusType",
+            cascade = CascadeType.REFRESH)
     private Set<Order> orders = new HashSet<>();
 }

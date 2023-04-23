@@ -9,6 +9,7 @@ import org.hibernate.annotations.Check;
 import ru.zhurkin.warehouseapp.model.generic.GenericModel;
 import ru.zhurkin.warehouseapp.model.order.OrderProducts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -34,15 +35,22 @@ public class Product extends GenericModel {
     @Column(nullable = false)
     private String warehousePosition;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "product_providers",
-            joinColumns = @JoinColumn(name = "product_id", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "provider_id", nullable = false)
+            joinColumns = @JoinColumn(
+                    name = "product_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "provider_id",
+                    referencedColumnName = "id"
+            )
     )
-    private List<Provider> providers;
+    private List<Provider> providers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product")
-    private List<OrderProducts> orderProducts;
+    @OneToMany(mappedBy = "product",
+            cascade = CascadeType.REMOVE)
+    private List<OrderProducts> orderProducts = new ArrayList<>();
 
 }

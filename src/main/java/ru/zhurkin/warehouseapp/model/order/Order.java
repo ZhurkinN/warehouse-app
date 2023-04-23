@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.ColumnDefault;
 import ru.zhurkin.warehouseapp.model.generic.GenericModel;
 import ru.zhurkin.warehouseapp.model.user.User;
 
@@ -22,35 +21,41 @@ import java.util.Set;
 @Accessors(chain = true)
 public class Order extends GenericModel {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.REFRESH)
     @JoinColumn(name = "manager_id",
             nullable = false)
     private User manager;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.REFRESH)
     @JoinColumn(name = "assistant_id",
             nullable = false)
     private User assistant;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = CascadeType.REFRESH)
     @JoinColumn(name = "order_type_id",
             nullable = false)
     private OrderType orderType;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "status_type_id")
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "status_type_id",
+            columnDefinition = "bigint default 1")
     private StatusType statusType;
 
     private String description;
 
-    @Column(nullable = false)
-    @ColumnDefault("false")
-    private Boolean isApproved;
+    @Column(columnDefinition = "bool default '0'")
+    private Boolean isApproved = false;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",
+            cascade = CascadeType.REMOVE)
     private List<OrderProducts> orderProducts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",
+            cascade = CascadeType.REMOVE)
     private Set<OrderDetails> orderDetails = new HashSet<>();
 
 }

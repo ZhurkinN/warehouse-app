@@ -32,18 +32,21 @@ public class User extends GenericModel {
     private String lastName;
 
     @ManyToOne(fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.REFRESH)
     @JoinColumn(name = "role_id",
             nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager",
+            cascade = CascadeType.REMOVE)
     private Set<Order> managerOrders = new HashSet<>();
 
-    @OneToMany(mappedBy = "assistant")
+    @OneToMany(mappedBy = "assistant",
+            cascade = CascadeType.REMOVE)
     private Set<Order> assistantOrders = new HashSet<>();
 
-    @OneToMany(mappedBy = "worker")
+    @OneToMany(mappedBy = "worker",
+            cascade = CascadeType.REMOVE)
     private Set<OrderDetails> workerOrders = new HashSet<>();
 
 }

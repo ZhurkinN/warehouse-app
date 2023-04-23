@@ -41,7 +41,7 @@ values ('loader2', '5678',
 insert into user (login, password,
                   first_name, middle_name, last_name,
                   role_id)
-values ('collerctor1', '5555',
+values ('collector1', '5555',
         'Ivan', 'Ivanovich', 'Ivanov',
         4);
 
@@ -118,27 +118,27 @@ values ('Black tea', 'Food',
 
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
                     description)
-values (1, 7, 1, 2, true,
+values (4, 7, 1, 2, true,
         'description 1');
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
                       description)
-values (3, 7, 2, 2, true,
+values (4, 7, 2, 2, true,
         'description 2');
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
                       description)
-values (2, 7, 1, 2, true,
+values (5, 7, 1, 2, true,
         'description 3');
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
                       description)
-values (3, 7, 2, 1, true,
+values (5, 7, 2, 1, true,
         'description 4');
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
                       description)
-values (1, 7, 1, 1, true,
+values (4, 7, 1, 1, true,
         'description 5');
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
                       description)
-values (3, 7, 1, 1, true,
+values (5, 7, 1, 1, true,
         'description 6');
 
 
@@ -163,11 +163,11 @@ values (6, 7, 10);
 
 
 insert into order_details (order_id, worker_id)
-values (1, 4);
+values (1, 1);
 insert into order_details (order_id, worker_id)
-values (2, 5);
+values (2, 7);
 insert into order_details (order_id, worker_id)
-values (3, 4);
+values (3, 2);
 
 
 insert into provider (name, address, telephone_number, email)

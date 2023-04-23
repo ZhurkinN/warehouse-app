@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.Check;
 import ru.zhurkin.warehouseapp.model.product.Product;
 
@@ -13,6 +14,7 @@ import ru.zhurkin.warehouseapp.model.product.Product;
 @Entity
 @Table(name = "order_products")
 @Check(constraints = "quantity > 0")
+@Accessors(chain = true)
 public class OrderProducts {
 
     @Id
@@ -21,13 +23,13 @@ public class OrderProducts {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.REFRESH)
     @JoinColumn(name = "order_id",
             nullable = false)
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.REFRESH)
     @JoinColumn(name = "product_id",
             nullable = false)
     private Product product;

@@ -24,4 +24,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findAvailableCollectorsOrders();
 
     List<Order> findAllByAssistant(User assistant);
+
+    List<Order> findAllByManager(User manager);
 }

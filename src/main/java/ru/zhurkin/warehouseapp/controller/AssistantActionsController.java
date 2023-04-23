@@ -23,10 +23,10 @@ public class AssistantActionsController {
     private final OrderService orderService;
     private final OrderMapper orderMapper;
 
-    @GetMapping("/all/{id}")
+    @GetMapping("/{id}")
     @Operation(method = "getAllAssistantsOrders",
             description = "Get all assistant's orders")
-    public ResponseEntity<List<OrderBodyDTO>> getAllAssistantsOrders(@PathVariable Long id) {
+    public ResponseEntity<List<OrderBodyDTO>> getAssistantsOrders(@PathVariable Long id) {
 
         List<Order> orders = orderService.getAssistantsOrders(id);
         List<OrderBodyDTO> orderDtos = orderMapper.toDtos(orders);
@@ -38,8 +38,9 @@ public class AssistantActionsController {
             description = "Approve or decline order")
     public ResponseEntity<OrderBodyDTO> handleOrder(@RequestBody HandleOrderDTO requestDto) {
 
-        Order order = orderService
-                .proveOrder(requestDto.assistantId(), requestDto.orderId(), requestDto.isApproved());
+        Order order = orderService.proveOrder(requestDto.assistantId(),
+                requestDto.orderId(),
+                requestDto.isApproved());
         OrderBodyDTO orderDto = orderMapper.toDto(order);
         return ResponseEntity.ok(orderDto);
     }

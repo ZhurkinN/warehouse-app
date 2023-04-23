@@ -22,6 +22,7 @@ public class OrderType {
     @Column(nullable = false)
     private String orderName;
 
-    @OneToMany(mappedBy = "orderType")
+    @OneToMany(mappedBy = "orderType",
+            cascade = CascadeType.REFRESH)
     private Set<Order> orders = new HashSet<>();
 }
