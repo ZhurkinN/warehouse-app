@@ -44,8 +44,8 @@ public class Order extends GenericModel {
     @JoinColumn(name = "status_type_id",
             columnDefinition = "bigint default 1")
     private StatusType statusType;
-
     private String description;
+    private String contactNumber;
 
     @Column(columnDefinition = "bool default '0'")
     private Boolean isApproved = false;
@@ -57,5 +57,4 @@ public class Order extends GenericModel {
     @OneToMany(mappedBy = "order",
             cascade = CascadeType.REMOVE)
     private Set<OrderDetails> orderDetails = new HashSet<>();
-
 }

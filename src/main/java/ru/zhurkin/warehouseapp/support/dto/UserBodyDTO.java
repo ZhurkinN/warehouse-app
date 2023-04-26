@@ -21,6 +21,7 @@ public class UserBodyDTO extends GenericDTO {
     private String firstName;
     private String middleName;
     private String lastName;
+    private String gender;
     private Long roleId;
 
     public UserBodyDTO(Long id,
@@ -31,6 +32,7 @@ public class UserBodyDTO extends GenericDTO {
                        String firstName,
                        String middleName,
                        String lastName,
+                       String gender,
                        Long roleId) {
         super(id, createdBy, createdWhen);
         this.login = login;
@@ -38,6 +40,7 @@ public class UserBodyDTO extends GenericDTO {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        this.gender = gender;
         this.roleId = roleId;
     }
 }

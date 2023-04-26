@@ -6,4 +6,5 @@ import ru.zhurkin.warehouseapp.model.product.Provider;
 
 @Repository
 public interface ProviderRepository extends JpaRepository<Provider, Long> {
+
 }

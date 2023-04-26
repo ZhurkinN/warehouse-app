@@ -7,6 +7,7 @@ import ru.zhurkin.warehouseapp.model.order.Order;
 import ru.zhurkin.warehouseapp.model.order.OrderDetails;
 import ru.zhurkin.warehouseapp.model.order.OrderProducts;
 import ru.zhurkin.warehouseapp.model.product.Product;
+import ru.zhurkin.warehouseapp.model.product.Provider;
 import ru.zhurkin.warehouseapp.repository.order.OrderDetailsRepository;
 import ru.zhurkin.warehouseapp.repository.product.ProductRepository;
 import ru.zhurkin.warehouseapp.service.generic.GenericService;
@@ -70,5 +71,11 @@ public class ProductService extends GenericService<Product> {
             product.setQuantityLeft(quantity);
             productRepository.save(product);
         }
+    }
+
+    public List<Provider> getProvidersById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND));
+        return product.getProviders();
     }
 }

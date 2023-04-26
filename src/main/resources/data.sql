@@ -28,48 +28,48 @@ values ('Export');
 
 insert into user (login, password,
                   first_name, middle_name, last_name,
-                  role_id)
+                  gender, role_id)
 values ('loader1', '1234',
         'Dmitriy', 'Vladimirovich', 'Tsipino',
-        1);
+        'Male', 1);
 insert into user (login, password,
                   first_name, middle_name, last_name,
-                  role_id)
+                  gender, role_id)
 values ('loader2', '5678',
         'Ivan', 'Yurievich', 'Kopylov',
-        1);
+        'Other', 1);
 insert into user (login, password,
                   first_name, middle_name, last_name,
-                  role_id)
+                  gender, role_id)
 values ('collector1', '5555',
         'Ivan', 'Ivanovich', 'Ivanov',
-        4);
+        'Male', 4);
 
 insert into user (login, password,
                   first_name, middle_name, last_name,
-                  role_id)
+                  gender, role_id)
 values ('manager1', '1111',
         'Maxim', 'Viktorovich', 'Lazarenko',
-        2);
+        'Male', 2);
 insert into user (login, password,
                   first_name, middle_name, last_name,
-                  role_id)
+                  gender, role_id)
 values ('manager2', '2222',
-        'Darya', 'Nikolaevna', 'Vasina',
-        2);
+        'Daria', 'Nikolaevna', 'Vasina',
+        'Female', 2);
 
 insert into user (login, password,
                   first_name, middle_name, last_name,
-                  role_id)
+                  gender, role_id)
 values ('moder1', '3333',
         'Nikita', 'Sergeevich', 'Zhurkin',
-        3);
+        'Male', 3);
 insert into user (login, password,
                   first_name, middle_name, last_name,
-                  role_id)
+                  gender, role_id)
 values ('assistant1', '8i88',
         'Sergey', 'Sergeevich', 'Sergeev',
-        5);
+        'Male', 5);
 
 
 insert into product (title, category,
@@ -77,43 +77,43 @@ insert into product (title, category,
                      measure_unit, price, warehouse_position)
 values ('LG TV', 'Electric device',
         'High quality big TV', 20,
-        'pieces', 25000, 'A1');
+        'шт.', 25000, 'A1');
 insert into product (title, category,
                      description, quantity_left,
                      measure_unit, price, warehouse_position)
 values ('Intel Core I9', 'Electric device',
         'Fast and parallel processor', 50,
-        'pieces', 60000, 'A3');
+        'шт.', 60000, 'A3');
 insert into product (title, category,
                      description, quantity_left,
                      measure_unit, price, warehouse_position)
 values ('Chair', 'Furniture',
         'Comfortable and soft chair', 35,
-        'pieces', 5000, 'A5');
+        'шт.', 5000, 'A5');
 insert into product (title, category,
                      description, quantity_left,
                      measure_unit, price, warehouse_position)
 values ('Peanut', 'Food',
         'Tasty nuts', 2000,
-        'kilograms', 100, 'B2');
+        'кг.', 100, 'B2');
 insert into product (title, category,
                      description, quantity_left,
                      measure_unit, price, warehouse_position)
 values ('Apple juice', 'Food',
         'Tasty green juice', 400,
-        'liters', 120, 'C4');
+        'л.', 120, 'C4');
 insert into product (title, category,
                      description, quantity_left,
                      measure_unit, price, warehouse_position)
 values ('Green tea', 'Food',
         'Chinese tea', 300,
-        'packets', 80, 'A3');
+        'шт.', 80, 'A3');
 insert into product (title, category,
                      description, quantity_left,
                      measure_unit, price, warehouse_position)
 values ('Black tea', 'Food',
         'Indian tea', 200,
-        'packets', 60, 'F3');
+        'шт.', 60, 'F3');
 
 
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,

@@ -66,4 +66,10 @@ public class ProviderService extends GenericService<Provider> {
         productRepository.save(product);
         return providerRepository.save(provider);
     }
+
+    public List<Product> getProductsById(Long id) {
+        Provider provider = providerRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(PROVIDER_NOT_FOUND));
+        return provider.getProducts();
+    }
 }

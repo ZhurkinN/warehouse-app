@@ -36,6 +36,7 @@ public class OrderMapper extends GenericMapper<Order, OrderBodyDTO> {
 
         Order order = new Order()
                 .setDescription(dto.getDescription())
+                .setContactNumber(dto.getContactNumber())
                 .setIsApproved(dto.getIsApproved())
                 .setOrderType(orderTypeRepository
                         .findById(dto.getOrderTypeId())
@@ -83,6 +84,7 @@ public class OrderMapper extends GenericMapper<Order, OrderBodyDTO> {
                 order.getOrderType().getId(),
                 order.getStatusType().getId(),
                 order.getDescription(),
+                order.getContactNumber(),
                 order.getIsApproved(),
                 order.getOrderProducts()
                         .stream()

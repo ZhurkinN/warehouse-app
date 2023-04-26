@@ -23,6 +23,7 @@ public class UserMapper extends GenericMapper<User, UserBodyDTO> {
                 .setLastName(dto.getLastName())
                 .setMiddleName(dto.getMiddleName())
                 .setFirstName(dto.getFirstName())
+                .setGender(dto.getGender())
                 .setRole(roleRepository
                         .findById(dto.getRoleId())
                         .orElseThrow(() -> new NotFoundException(ROLE_NOT_FOUND)));
@@ -42,6 +43,7 @@ public class UserMapper extends GenericMapper<User, UserBodyDTO> {
                 user.getFirstName(),
                 user.getMiddleName(),
                 user.getLastName(),
+                user.getGender(),
                 user.getRole().getId()
         );
     }

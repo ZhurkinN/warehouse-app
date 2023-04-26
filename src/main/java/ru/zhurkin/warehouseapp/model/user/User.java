@@ -30,6 +30,7 @@ public class User extends GenericModel {
     private String firstName;
     private String middleName;
     private String lastName;
+    private String gender;
 
     @ManyToOne(fetch = FetchType.EAGER,
             cascade = CascadeType.REFRESH)

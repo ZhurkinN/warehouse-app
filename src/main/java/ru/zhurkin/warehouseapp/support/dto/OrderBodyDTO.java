@@ -23,6 +23,7 @@ public class OrderBodyDTO extends GenericDTO {
     private Long orderTypeId;
     private Long statusTypeId;
     private String description;
+    private String contactNumber;
     private Boolean isApproved;
     private List<Long> orderProductIds;
     private Set<Long> orderDetailIds;
@@ -35,6 +36,7 @@ public class OrderBodyDTO extends GenericDTO {
                         Long orderTypeId,
                         Long statusTypeId,
                         String description,
+                        String contactNumber,
                         Boolean isApproved,
                         List<Long> orderProductIds,
                         Set<Long> orderDetailIds) {
@@ -44,6 +46,7 @@ public class OrderBodyDTO extends GenericDTO {
         this.orderTypeId = orderTypeId;
         this.statusTypeId = statusTypeId;
         this.description = description;
+        this.contactNumber = contactNumber;
         this.isApproved = isApproved;
         this.orderProductIds = orderProductIds;
         this.orderDetailIds = orderDetailIds;
