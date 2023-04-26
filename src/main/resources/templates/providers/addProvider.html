@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление поставщика</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 class="mt-3 mb-3">Добавление поставщика</h3>
+    <form class="needs-validation" style="max-width: 50vw" method="POST" th:action="@{/providers/add}"
+          th:object="${providerForm}">
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="name" type="text" class="form-control" id="name" placeholder="Название книги" required>
+                    <label for="name">Название</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="email" type="email" class="form-control" id="email" placeholder="E-mail адрес"
+                           required>
+                    <label for="email">E-mail адрес</label>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="address" type="text" class="form-control" id="address" placeholder="Адрес" required>
+                    <label for="address">Адрес офиса</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="telephoneNumber" type="tel"
+                           class="form-control" id="telephone" placeholder="Номер телефона" required>
+                    <label for="telephone">Номер телефона</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3 row g-2">
+            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

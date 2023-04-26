@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование поставщика</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 class="mt-3 mb-3" th:text="'Изменить данные о поставщике ' + ${provider.getName()}"></h3>
+    <form class="needs-validation" style="max-width: 50vw" method="POST" th:action="@{/providers/update}"
+          th:object="${providerForm}">
+        <input type="hidden" name="id"
+               th:value="${provider.getId()}">
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="name" th:value="${provider.getName()}" type="text" class="form-control" id="name"
+                           placeholder="Название" required>
+                    <label for="name">Название</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="email" th:value="${provider.getEmail()}" type="text" class="form-control" id="email"
+                           placeholder="E-mail" required>
+                    <label for="email">E-mail</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 row g-2">
+            <div class="mt-3 row g-2">
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="address" th:value="${provider.getAddress()}" type="text" class="form-control"
+                               id="address" placeholder="Адрес офиса" required>
+                        <label for="address">Адрес офиса</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="telephoneNumber" th:value="${provider.getTelephoneNumber()}" type="tel"
+                               class="form-control" id="telephoneNumber" placeholder="Номер телефона" required>
+                        <label for="telephoneNumber">Номер телефона</label>
+                        <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 row g-2">
+                <button type="submit" class="btn btn-primary">Обновить</button>
+                <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

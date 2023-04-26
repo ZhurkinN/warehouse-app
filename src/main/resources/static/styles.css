@@ -1,0 +1,11 @@
+.nav-link.active {
+    color: white !important;
+}
+
+.nav-link {
+    color: darkgrey !important;
+}
+
+.not-enough-product {
+    color: red;
+}
