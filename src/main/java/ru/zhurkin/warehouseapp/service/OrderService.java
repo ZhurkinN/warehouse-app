@@ -1,6 +1,8 @@
 package ru.zhurkin.warehouseapp.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.webjars.NotFoundException;
@@ -19,6 +21,7 @@ import ru.zhurkin.warehouseapp.service.generic.GenericService;
 import ru.zhurkin.warehouseapp.support.exception.IllegalRequestParameterException;
 import ru.zhurkin.warehouseapp.support.exception.RolePermissionsException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -67,6 +70,11 @@ public class OrderService extends GenericService<Order> {
     }
 
     @Override
+    public Page<Order> getAll(Pageable pageable) {
+        return orderRepository.findAll(pageable);
+    }
+
+    @Override
     public Order update(Order order) {
 
         orderRepository.findById(order.getId())
@@ -76,10 +84,36 @@ public class OrderService extends GenericService<Order> {
 
     @Override
     public void delete(Long id) {
-
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ORDER_NOT_FOUND));
         orderRepository.delete(order);
+    }
+
+    @Override
+    public boolean softDelete(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(ORDER_NOT_FOUND));
+        boolean isDeleted = false;
+        if (orderRepository.canSoftDeleteOrder(id) == 1) {
+            order.setIsDeleted(true);
+            order.setDeletedBy("ADMIN");
+            order.setDeletedWhen(LocalDateTime.now());
+            orderRepository.save(order);
+            isDeleted = true;
+        }
+        return isDeleted;
+    }
+
+    @Override
+    public void restore(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(ORDER_NOT_FOUND));
+        if (order.getIsDeleted()) {
+            order.setIsDeleted(false);
+            order.setDeletedBy(null);
+            order.setDeletedWhen(null);
+        }
+        orderRepository.save(order);
     }
 
     public List<Order> getAssistantsOrders(Long id) {

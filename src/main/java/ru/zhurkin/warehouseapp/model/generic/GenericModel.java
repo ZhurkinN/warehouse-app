@@ -25,6 +25,15 @@ public class GenericModel {
 
     @Column(columnDefinition = "timestamp default now()")
     protected LocalDateTime createdWhen = LocalDateTime.now();
+
+    @Column(columnDefinition = "bool default '0'")
+    protected Boolean isDeleted = false;
+
+    @Column(columnDefinition = "varchar(150) default null")
+    protected String deletedBy = null;
+
+    @Column(columnDefinition = "timestamp default null")
+    protected LocalDateTime deletedWhen = null;
 }
 
 

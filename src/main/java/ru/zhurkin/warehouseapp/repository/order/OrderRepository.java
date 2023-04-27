@@ -26,4 +26,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findAllByAssistant(User assistant);
 
     List<Order> findAllByManager(User manager);
+
+    @Query(nativeQuery = true, value = "select if (count(*) = 0, true, false)\n" +
+            "from orders\n" +
+            "where orders.id = ?1 and status_type_id != 3")
+    long canSoftDeleteOrder(Long orderId);
 }

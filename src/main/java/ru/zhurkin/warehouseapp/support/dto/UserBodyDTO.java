@@ -27,6 +27,9 @@ public class UserBodyDTO extends GenericDTO {
     public UserBodyDTO(Long id,
                        String createdBy,
                        LocalDateTime createdWhen,
+                       Boolean isDeleted,
+                       String deletedBy,
+                       LocalDateTime deletedWhen,
                        String login,
                        String password,
                        String firstName,
@@ -34,7 +37,7 @@ public class UserBodyDTO extends GenericDTO {
                        String lastName,
                        String gender,
                        Long roleId) {
-        super(id, createdBy, createdWhen);
+        super(id, createdBy, createdWhen, isDeleted, deletedBy, deletedWhen);
         this.login = login;
         this.password = password;
         this.firstName = firstName;

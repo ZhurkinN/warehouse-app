@@ -24,12 +24,15 @@ public class ProviderBodyDTO extends GenericDTO {
     public ProviderBodyDTO(Long id,
                            String createdBy,
                            LocalDateTime createdWhen,
+                           Boolean isDeleted,
+                           String deletedBy,
+                           LocalDateTime deletedWhen,
                            String name,
                            String address,
                            String telephoneNumber,
                            String email,
                            List<Long> productIds) {
-        super(id, createdBy, createdWhen);
+        super(id, createdBy, createdWhen, isDeleted, deletedBy, deletedWhen);
         this.name = name;
         this.address = address;
         this.telephoneNumber = telephoneNumber;

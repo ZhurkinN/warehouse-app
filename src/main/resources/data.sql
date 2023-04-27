@@ -117,29 +117,29 @@ values ('Black tea', 'Food',
 
 
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
-                    description)
+                    description, contact_number)
 values (4, 7, 1, 2, true,
-        'description 1');
+        'description 1', '79238489823');
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
-                      description)
+                      description, contact_number)
 values (4, 7, 2, 2, true,
-        'description 2');
+        'description 2', '70038129823');
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
-                      description)
+                      description, contact_number)
 values (5, 7, 1, 2, true,
-        'description 3');
+        'description 3', '79658480923');
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
-                      description)
+                      description, contact_number)
 values (5, 7, 2, 1, true,
-        'description 4');
+        'description 4', '79274487823');
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
-                      description)
+                      description, contact_number)
 values (4, 7, 1, 1, true,
-        'description 5');
+        'description 5', '79232487623');
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
-                      description)
+                      description, contact_number)
 values (5, 7, 1, 1, true,
-        'description 6');
+        'description 6', '79223659823');
 
 
 insert into order_products (order_id, product_id, quantity)

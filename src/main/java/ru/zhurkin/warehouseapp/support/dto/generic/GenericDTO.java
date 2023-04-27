@@ -16,4 +16,7 @@ public abstract class GenericDTO {
     protected Long id;
     protected String createdBy = "Nikita Zhurkin";
     protected LocalDateTime createdWhen = LocalDateTime.now();
+    protected Boolean isDeleted = false;
+    protected String deletedBy = null;
+    protected LocalDateTime deletedWhen = null;
 }

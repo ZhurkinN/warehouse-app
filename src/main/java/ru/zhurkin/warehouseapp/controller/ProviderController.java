@@ -35,7 +35,7 @@ public class ProviderController extends GenericController<ProviderBodyDTO, Provi
         this.productMapper = productMapper;
     }
 
-    @PostMapping("/addProduct")
+    @PostMapping("/add-product")
     public ResponseEntity<ProviderBodyDTO> addProvidersProduct(
             @RequestBody AddProductToProviderDTO requestDto) {
 

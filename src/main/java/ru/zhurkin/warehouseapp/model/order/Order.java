@@ -42,6 +42,7 @@ public class Order extends GenericModel {
     @ManyToOne(fetch = FetchType.EAGER,
             cascade = CascadeType.REFRESH)
     @JoinColumn(name = "status_type_id",
+            nullable = false,
             columnDefinition = "bigint default 1")
     private StatusType statusType;
     private String description;

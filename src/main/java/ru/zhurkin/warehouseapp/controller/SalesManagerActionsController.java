@@ -49,7 +49,7 @@ public class SalesManagerActionsController {
         return ResponseEntity.ok(orderDtos);
     }
 
-    @PostMapping("/addProduct")
+    @PostMapping("/add-product")
     @Operation(method = "addProduct",
             description = "Add product to the order")
     public ResponseEntity<OrderBodyDTO> addProduct(@RequestBody AddProductToOrderDTO requestDto) {

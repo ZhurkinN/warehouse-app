@@ -35,11 +35,8 @@ public class ProviderMapper extends GenericMapper<Provider, ProviderBodyDTO> {
                     .map(e -> e.orElseThrow(() -> new NotFoundException(PROVIDER_NOT_FOUND)))
                     .toList());
         }
-        provider.setId(dto.getId());
-        provider.setCreatedBy(dto.getCreatedBy());
-        provider.setCreatedWhen(dto.getCreatedWhen());
 
-        return provider;
+        return setGenericFields(dto, provider);
     }
 
     @Override
@@ -47,6 +44,9 @@ public class ProviderMapper extends GenericMapper<Provider, ProviderBodyDTO> {
         return new ProviderBodyDTO(provider.getId(),
                 provider.getCreatedBy(),
                 provider.getCreatedWhen(),
+                provider.getIsDeleted(),
+                provider.getDeletedBy(),
+                provider.getDeletedWhen(),
                 provider.getName(),
                 provider.getAddress(),
                 provider.getTelephoneNumber(),

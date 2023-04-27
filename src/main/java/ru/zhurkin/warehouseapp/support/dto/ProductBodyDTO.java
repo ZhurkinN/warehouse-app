@@ -28,6 +28,9 @@ public class ProductBodyDTO extends GenericDTO {
     public ProductBodyDTO(Long id,
                           String createdBy,
                           LocalDateTime createdWhen,
+                          Boolean isDeleted,
+                          String deletedBy,
+                          LocalDateTime deletedWhen,
                           String title,
                           String category,
                           String description,
@@ -37,7 +40,7 @@ public class ProductBodyDTO extends GenericDTO {
                           String warehousePosition,
                           List<Long> providerIds,
                           List<Long> orderProductsIds) {
-        super(id, createdBy, createdWhen);
+        super(id, createdBy, createdWhen, isDeleted, deletedBy, deletedWhen);
         this.title = title;
         this.category = category;
         this.description = description;

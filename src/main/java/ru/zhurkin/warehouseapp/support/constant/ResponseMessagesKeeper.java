@@ -30,5 +30,7 @@ public class ResponseMessagesKeeper {
     public static final String WRONG_PRODUCT_PARAMETERS = "Wrong product's parameter/-s!";
     public static final String NOT_ENOUGH_PRODUCTS = "There are not enough product in the warehouse!";
     public static final String PRODUCT_WAS_DELETED = "Product was deleted from the order";
+    public static final String RECORD_WAS_RESTORED = "Record was restored";
+    public static final String RECORD_WAS_NOT_DELETED = "Record cannot be deleted!";
 }
 

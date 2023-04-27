@@ -50,11 +50,8 @@ public class ProductMapper extends GenericMapper<Product, ProductBodyDTO> {
                     .map(e -> e.orElseThrow(() -> new NotFoundException(ORDER_PRODUCTS_NOT_FOUND)))
                     .toList());
         }
-        product.setId(dto.getId());
-        product.setCreatedBy(dto.getCreatedBy());
-        product.setCreatedWhen(dto.getCreatedWhen());
 
-        return product;
+        return setGenericFields(dto, product);
     }
 
     @Override
@@ -62,6 +59,9 @@ public class ProductMapper extends GenericMapper<Product, ProductBodyDTO> {
         return new ProductBodyDTO(product.getId(),
                 product.getCreatedBy(),
                 product.getCreatedWhen(),
+                product.getIsDeleted(),
+                product.getDeletedBy(),
+                product.getDeletedWhen(),
                 product.getTitle(),
                 product.getCategory(),
                 product.getDescription(),

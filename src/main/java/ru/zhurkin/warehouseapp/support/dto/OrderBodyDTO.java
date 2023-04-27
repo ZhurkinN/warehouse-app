@@ -31,6 +31,9 @@ public class OrderBodyDTO extends GenericDTO {
     public OrderBodyDTO(Long id,
                         String createdBy,
                         LocalDateTime createdWhen,
+                        Boolean isDeleted,
+                        String deletedBy,
+                        LocalDateTime deletedWhen,
                         Long managerId,
                         Long assistantId,
                         Long orderTypeId,
@@ -40,7 +43,7 @@ public class OrderBodyDTO extends GenericDTO {
                         Boolean isApproved,
                         List<Long> orderProductIds,
                         Set<Long> orderDetailIds) {
-        super(id, createdBy, createdWhen);
+        super(id, createdBy, createdWhen, isDeleted, deletedBy, deletedWhen);
         this.managerId = managerId;
         this.assistantId = assistantId;
         this.orderTypeId = orderTypeId;

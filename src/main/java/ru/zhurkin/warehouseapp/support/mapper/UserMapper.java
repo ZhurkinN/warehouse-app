@@ -27,10 +27,8 @@ public class UserMapper extends GenericMapper<User, UserBodyDTO> {
                 .setRole(roleRepository
                         .findById(dto.getRoleId())
                         .orElseThrow(() -> new NotFoundException(ROLE_NOT_FOUND)));
-        user.setId(dto.getId());
-        user.setCreatedBy(dto.getCreatedBy());
-        user.setCreatedWhen(dto.getCreatedWhen());
-        return user;
+
+        return setGenericFields(dto, user);
     }
 
     public UserBodyDTO toDto(User user) {
@@ -38,6 +36,9 @@ public class UserMapper extends GenericMapper<User, UserBodyDTO> {
                 user.getId(),
                 user.getCreatedBy(),
                 user.getCreatedWhen(),
+                user.getIsDeleted(),
+                user.getDeletedBy(),
+                user.getDeletedWhen(),
                 user.getLogin(),
                 user.getPassword(),
                 user.getFirstName(),

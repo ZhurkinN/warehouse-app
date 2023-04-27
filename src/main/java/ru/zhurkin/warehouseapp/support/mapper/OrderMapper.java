@@ -66,11 +66,8 @@ public class OrderMapper extends GenericMapper<Order, OrderBodyDTO> {
                     .map(e -> e.orElseThrow(() -> new NotFoundException(ORDER_DETAILS_NOT_FOUND)))
                     .collect(Collectors.toSet()));
         }
-        order.setId(dto.getId());
-        order.setCreatedBy(dto.getCreatedBy());
-        order.setCreatedWhen(dto.getCreatedWhen());
 
-        return order;
+        return setGenericFields(dto, order);
     }
 
     @Override
@@ -79,6 +76,9 @@ public class OrderMapper extends GenericMapper<Order, OrderBodyDTO> {
                 order.getId(),
                 order.getCreatedBy(),
                 order.getCreatedWhen(),
+                order.getIsDeleted(),
+                order.getDeletedBy(),
+                order.getDeletedWhen(),
                 order.getManager().getId(),
                 order.getAssistant().getId(),
                 order.getOrderType().getId(),

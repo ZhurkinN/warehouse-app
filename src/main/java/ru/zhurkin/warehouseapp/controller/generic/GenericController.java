@@ -11,7 +11,7 @@ import ru.zhurkin.warehouseapp.support.mapper.generic.GenericMapper;
 
 import java.util.List;
 
-import static ru.zhurkin.warehouseapp.support.constant.ResponseMessagesKeeper.RECORD_WAS_DELETED;
+import static ru.zhurkin.warehouseapp.support.constant.ResponseMessagesKeeper.*;
 
 @RequiredArgsConstructor
 public abstract class GenericController<D extends GenericDTO, M extends GenericModel> {
@@ -60,4 +60,23 @@ public abstract class GenericController<D extends GenericDTO, M extends GenericM
         genericService.delete(id);
         return ResponseEntity.ok(RECORD_WAS_DELETED);
     }
+
+    @PostMapping("/soft-delete/{id}")
+    @Operation(method = "softDelete", description = "Soft delete record by id")
+    public ResponseEntity<String> softDelete(@PathVariable Long id) {
+
+        String resultMessage = genericService.softDelete(id)
+                ? RECORD_WAS_DELETED
+                : RECORD_WAS_NOT_DELETED;
+        return ResponseEntity.ok(resultMessage);
+    }
+
+    @PostMapping("/restore/{id}")
+    @Operation(method = "restore", description = "Restore deleted record by id")
+    public ResponseEntity<String> restore(@PathVariable Long id) {
+
+        genericService.restore(id);
+        return ResponseEntity.ok(RECORD_WAS_RESTORED);
+    }
+
 }

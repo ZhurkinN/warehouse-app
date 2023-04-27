@@ -3,11 +3,9 @@ package ru.zhurkin.warehouseapp.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.zhurkin.warehouseapp.controller.generic.GenericController;
+import ru.zhurkin.warehouseapp.controller.model.AddProductToProviderDTO;
 import ru.zhurkin.warehouseapp.model.product.Product;
 import ru.zhurkin.warehouseapp.model.product.Provider;
 import ru.zhurkin.warehouseapp.service.ProductService;
@@ -45,5 +43,14 @@ public class ProductController extends GenericController<ProductBodyDTO, Product
         List<Provider> providers = productService.getProvidersById(id);
         List<ProviderBodyDTO> responseDtos = providerMapper.toDtos(providers);
         return ResponseEntity.ok(responseDtos);
+    }
+
+    @PostMapping("/add-provider")
+    public ResponseEntity<ProductBodyDTO> addProductsProvider(
+            @RequestBody AddProductToProviderDTO requestDto) {
+
+        Product product = productService.addProvider(requestDto.providerId(), requestDto.productId());
+        ProductBodyDTO responseDto = productMapper.toDto(product);
+        return ResponseEntity.ok(responseDto);
     }
 }

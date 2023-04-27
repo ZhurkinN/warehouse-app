@@ -22,4 +22,15 @@ public abstract class GenericMapper<E extends GenericModel, D extends GenericDTO
                 .map(this::toDto)
                 .toList();
     }
+
+    protected E setGenericFields(D dto, E entity) {
+        entity.setId(dto.getId());
+        entity.setCreatedBy(dto.getCreatedBy());
+        entity.setCreatedWhen(dto.getCreatedWhen());
+        entity.setIsDeleted(dto.getIsDeleted());
+        entity.setDeletedBy(dto.getDeletedBy());
+        entity.setDeletedWhen(dto.getDeletedWhen());
+
+        return entity;
+    }
 }
