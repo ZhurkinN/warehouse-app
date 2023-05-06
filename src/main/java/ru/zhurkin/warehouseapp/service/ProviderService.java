@@ -2,6 +2,7 @@ package ru.zhurkin.warehouseapp.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +25,6 @@ public class ProviderService extends GenericService<Provider> {
 
     private final ProviderRepository providerRepository;
     private final ProductRepository productRepository;
-
 
     @Override
     public Provider add(Provider provider) {
@@ -106,5 +106,10 @@ public class ProviderService extends GenericService<Provider> {
         Provider provider = providerRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(PROVIDER_NOT_FOUND));
         return provider.getProducts();
+    }
+
+    public Page<Provider> findProviders(String name,
+                                        PageRequest pageRequest) {
+        return providerRepository.findAllByNameContainsIgnoreCaseAndIsDeletedFalse(name, pageRequest);
     }
 }

@@ -4,6 +4,7 @@ public record CreateNewOrderDTO(
         Long managerId,
         Long assistantId,
         Long orderTypeId,
-        String description
+        String description,
+        String contactNumber
 ) {
 }

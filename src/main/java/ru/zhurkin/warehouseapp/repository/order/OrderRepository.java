@@ -1,5 +1,7 @@
 package ru.zhurkin.warehouseapp.repository.order;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -31,4 +33,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "from orders\n" +
             "where orders.id = ?1 and status_type_id != 3")
     long canSoftDeleteOrder(Long orderId);
+
+    Page<Order> findAllByAssistant(User assistant,
+                                   Pageable pageable);
+
+    Page<Order> findAllByManager(User manager,
+                                 Pageable pageable);
 }

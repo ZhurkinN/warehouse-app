@@ -145,7 +145,8 @@ public class OrderService extends GenericService<Order> {
     public Order createNewOrder(Long assistantId,
                                 Long managerId,
                                 Long orderTypeId,
-                                String description) {
+                                String description,
+                                String contactNumber) {
         User assistant = userRepository.findById(assistantId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         User manager = userRepository.findById(managerId)
@@ -162,7 +163,8 @@ public class OrderService extends GenericService<Order> {
                 .setOrderType(orderType)
                 .setDescription(description)
                 .setStatusType(statusTypeRepository.findById(1L)
-                        .orElseThrow(() -> new NotFoundException(STATUS_TYPE_NOT_FOUND)));
+                        .orElseThrow(() -> new NotFoundException(STATUS_TYPE_NOT_FOUND)))
+                .setContactNumber(contactNumber);
         return orderRepository.save(order);
     }
 
@@ -196,5 +198,20 @@ public class OrderService extends GenericService<Order> {
         OrderProducts orderProducts = orderProductsRepository.findById(orderProductsId)
                 .orElseThrow(() -> new NotFoundException(ORDER_PRODUCTS_NOT_FOUND));
         orderProductsRepository.delete(orderProducts);
+    }
+
+    public Page<Order> getAssistantOrManagerOrders(Long id,
+                                                   Pageable pageable) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        Page<Order> orders;
+        if (user.getRole().getRoleName().equals(ASSISTANT.getRoleName())) {
+            orders = orderRepository.findAllByAssistant(user, pageable);
+        } else if (user.getRole().getRoleName().equals(SALES_MANAGER.getRoleName())) {
+            orders = orderRepository.findAllByManager(user, pageable);
+        } else {
+            throw new RolePermissionsException(WRONG_ROLE_PERMISSIONS);
+        }
+        return orders;
     }
 }

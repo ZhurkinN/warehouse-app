@@ -11,6 +11,7 @@ import ru.zhurkin.warehouseapp.model.order.OrderDetails;
 import ru.zhurkin.warehouseapp.model.order.OrderProducts;
 import ru.zhurkin.warehouseapp.model.product.Product;
 import ru.zhurkin.warehouseapp.model.product.Provider;
+import ru.zhurkin.warehouseapp.mvc.model.SearchProductDTO;
 import ru.zhurkin.warehouseapp.repository.order.OrderDetailsRepository;
 import ru.zhurkin.warehouseapp.repository.product.ProductRepository;
 import ru.zhurkin.warehouseapp.repository.product.ProviderRepository;
@@ -130,4 +131,15 @@ public class ProductService extends GenericService<Product> {
         providerRepository.save(provider);
         return productRepository.save(product);
     }
+
+    public Page<Product> findProducts(SearchProductDTO dto,
+                                      Pageable pageable) {
+        Page<Product> productPage = productRepository.searchProducts(
+                "%" + dto.productTitle() + "%",
+                "%" + dto.providerName() + "%",
+                pageable
+        );
+        return productPage;
+    }
+
 }

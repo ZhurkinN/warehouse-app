@@ -13,6 +13,10 @@ spring:
       ddl-auto: create
     open-in-view: true
     defer-datasource-initialization: true
+  security:
+    user:
+      name: user
+      password: 1
 #logging:
 #  level:
 #    org:
@@ -37,3 +41,4 @@ openapi:
   description: The service provides a warehouse with complete functionality.
   name: Nikita Zhurkin
   email: zhurkin236@gmail.com
+

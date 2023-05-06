@@ -34,7 +34,8 @@ public class SalesManagerActionsController {
         Order order = orderService.createNewOrder(requestDto.assistantId(),
                 requestDto.managerId(),
                 requestDto.orderTypeId(),
-                requestDto.description());
+                requestDto.description(),
+                requestDto.contactNumber());
         OrderBodyDTO responseDto = orderMapper.toDto(order);
         return ResponseEntity.ok(responseDto);
     }

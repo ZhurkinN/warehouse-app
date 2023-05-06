@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Заказы</title>
+    <link href="/../static/styles.css" rel="stylesheet" media="screen">
+</head>
+<body>
+<div layout:fragment="content">
+    <hr class="hr"/>
+    <!--    <h3>Поиск заказа</h3>-->
+    <!--    <form method="POST" th:action="@{/orders/search}" th:object="${orderSearchForm}">-->
+    <!--        <div class="mt-0 row g-2">-->
+    <!--            <div class="col-md">-->
+    <!--                <div class="form-floating">-->
+    <!--                    <input name="id" type="text" class="form-control" id="id" placeholder="Идентификатор заказа">-->
+    <!--                    <label for="id">Идентификатор заказа</label>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div class="col-md">-->
+    <!--                <div class="form-floating">-->
+    <!--                    <input name="providerName" type="text" class="form-control" id="name" placeholder="Название поставщика">-->
+    <!--                    <label for="name">Поставщик</label>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div class="row g-2">-->
+    <!--                <button type="submit" class="btn btn-secondary">Найти товар</button>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </form>-->
+    <hr class="mt-3 hr"/>
+    <div class="mt-5">
+        <div class="row">
+            <div class="col">
+                <h2>Список заказов</h2>
+            </div>
+            <div class="col">
+                <a
+                        href="/orders/add"
+                        class="btn btn-success"
+                        role="button"
+                        style="float: right"
+                        aria-disabled="true">Создать новый заказ</a>
+            </div>
+        </div>
+        <div>
+            <table class="table table-hover mt-3">
+                <thead>
+                <tr>
+                    <th scope="col">Идентификатор</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col">Подтвержден</th>
+                    <th scope="col">Контактный номер</th>
+                    <th scope="col">Ассистент</th>
+                    <th scope="col">Торговый представитель</th>
+                    <th scope="col">Дата создания</th>
+                    <th scope="col">Тип заказа</th>
+                    <th scope="col">Статус выполнения</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order : ${orders}">
+                    <td>
+                        <a class="text-link text-blue" th:href="'/orders/' + ${order.getId()}"
+                           th:text="${order.getId()}"></a>
+                    </td>
+                    <td th:text="${order.getDescription()}"></td>
+                    <td th:text="${order.getIsApproved()}"></td>
+                    <td th:text="${order.getContactNumber()}"></td>
+                    <td th:text="${userRepository.findById(order.getAssistantId()).orElseThrow().getLogin()}"></td>
+                    <td th:text="${userRepository.findById(order.getManagerId()).orElseThrow().getLogin()}"></td>
+                    <td th:text="${order.getCreatedWhen()}"></td>
+                    <td th:text="${typeRepository.findById(order.getOrderTypeId()).orElseThrow().getOrderName()}"></td>
+                    <td th:text="${statusRepository.findById(order.getStatusTypeId()).orElseThrow().getStatusName()}"></td>
+                    <td>
+                        <div>
+                            <a class="btn btn-sm btn-outline-success"
+                               th:href="'/orders/update/' + ${order.getId()}">Редактировать</a>
+                            <a th:if="${!order.getIsDeleted()}" class="btn btn-sm btn-outline-danger"
+                               th:href="'/orders/delete/' + ${order.getId()}"
+                               onclick="return confirm('Вы действительно хотите удалить заказ?');">Удалить</a>
+                            <a th:if="${order.getIsDeleted()}" class="btn btn-sm btn-outline-warning"
+                               th:href="'/orders/restore/' + ${order.getId()}">Восстановить</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <nav aria-label="Pagination" th:if="${orders.totalPages gt 0}">
+                <ul class="pagination justify-content-center font-weight-bold">
+                    <li class="page-item" th:classappend="${orders.number eq 0} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="@{/orders?page={id}(id=${orders.number lt 2 ? 1 : orders.number})}"
+                           aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:classappend="${i eq orders.number + 1} ? 'active'"
+                        th:each="i : ${#numbers.sequence( 1, orders.totalPages, 1)}">
+                        <a class="page-link" th:href="@{/orders?page={id}(id=${i})}" th:text="${i}"
+                           th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${orders.number eq orders.totalPages - 1} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="@{/orders?page={id}(id=${orders.number + 2})}"
+                           aria-label="Next" title="Next Page" data-toggle="tooltip">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

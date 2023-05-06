@@ -12,10 +12,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(nativeQuery = true,
             value = "" +
-            "select if (count(*) = 0, true, false)\n" +
-            "from user\n" +
-            "join order_details od on user.id = od.worker_id\n" +
-            "where user.id = ?1 and od.close_date IS NULL")
+                    "select if (count(*) = 0, true, false)\n" +
+                    "from user\n" +
+                    "join order_details od on user.id = od.worker_id\n" +
+                    "where user.id = ?1 and od.close_date IS NULL")
     long canSoftDeleteWorker(Long userId);
 
     @Query(nativeQuery = true,

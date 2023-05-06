@@ -117,7 +117,7 @@ values ('Black tea', 'Food',
 
 
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
-                    description, contact_number)
+                      description, contact_number)
 values (4, 7, 1, 2, true,
         'description 1', '79238489823');
 insert into `orders` (manager_id, assistant_id, order_type_id, status_type_id, is_approved,
