@@ -15,8 +15,9 @@ spring:
     defer-datasource-initialization: true
   security:
     user:
-      name: user
-      password: 1
+      name: moderator
+      password: $2a$10$IRAa2L42Bz011.za0K6QrevQX2cGHIsbfouKkGdP9OU6S6klTsJn6
+      roles: MODERATOR
 #logging:
 #  level:
 #    org:

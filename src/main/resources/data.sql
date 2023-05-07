@@ -29,7 +29,7 @@ values ('Export');
 insert into user (login, password,
                   first_name, middle_name, last_name,
                   gender, role_id)
-values ('loader1', '1234',
+values ('load', '$2y$10$T8Cyq6wP4IdJHqhK0psSO.EzkClVbdfr8qhrQwXcG.YVYgsPuwu5y',
         'Dmitriy', 'Vladimirovich', 'Tsipino',
         'Male', 1);
 insert into user (login, password,
@@ -48,7 +48,7 @@ values ('collector1', '5555',
 insert into user (login, password,
                   first_name, middle_name, last_name,
                   gender, role_id)
-values ('manager1', '1111',
+values ('qwe', '$2y$10$67JrNtp517s.JSaHAybCSubWbzCnN5Dt34J7gioNK60ahRVp0FYw6',
         'Maxim', 'Viktorovich', 'Lazarenko',
         'Male', 2);
 insert into user (login, password,
@@ -61,13 +61,13 @@ values ('manager2', '2222',
 insert into user (login, password,
                   first_name, middle_name, last_name,
                   gender, role_id)
-values ('moder1', '3333',
+values ('collector2', '3333',
         'Nikita', 'Sergeevich', 'Zhurkin',
-        'Male', 3);
+        'Male', 4);
 insert into user (login, password,
                   first_name, middle_name, last_name,
                   gender, role_id)
-values ('assistant1', '8i88',
+values ('ass', '$2y$10$h9NawfatyFpQ8i0srU6F1eprO6Oxhx2cNPn2Mw8E37mH9YEkdh7ae',
         'Sergey', 'Sergeevich', 'Sergeev',
         'Male', 5);
 
