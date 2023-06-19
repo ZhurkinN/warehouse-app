@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о пользователе</title>
+</head>
+<body>
+<form layout:fragment="content">
+    <div>
+        <h3 th:text="'Информация о пользователе: ' + ${user.getLogin()}"></h3>
+        <form class="row g-1">
+            <div class="mb-2 row">
+                <label for="login" class="col-sm-2 col-form-label no-border">Логин:</label>
+                <div class="col-sm-10">
+                    <p th:text="${user.getLogin()}" class="form-control-plaintext" id="login">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="first-name" class="col-sm-2 col-form-label">Имя:</label>
+                <div class="col-sm-10">
+                    <p th:text="${user.getFirstName()}" class="form-control-plaintext" id="first-name">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="last-name" class="col-sm-2 col-form-label">Фамилия:</label>
+                <div class="col-sm-10">
+                    <p th:text="${user.getLastName()}" class="form-control-plaintext" id="last-name">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="middle-name" class="col-sm-2 col-form-label">Очество:</label>
+                <div class="col-sm-10">
+                    <p th:text="${user.getMiddleName()}" class="form-control-plaintext" id="middle-name">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="gender" class="col-sm-2 col-form-label">Пол:</label>
+                <div class="col-sm-10">
+                    <p th:text="${user.getGender()}" class="form-control-plaintext" id="gender">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="date" class="col-sm-2 col-form-label">Дата регистрации:</label>
+                <div class="col-sm-10">
+                    <p th:text="${user.getCreatedWhen()}" class="form-control-plaintext" id="date">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="role" class="col-sm-2 col-form-label">Роль в системе:</label>
+                <div class="col-sm-10">
+                    <p th:text="${repository.findById(user.getRoleId()).get().getRoleName()}"
+                       class="form-control-plaintext" id="role">
+                </div>
+            </div>
+        </form>
+        <hr class="hr"/>
+        <div class="mt-2">
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление товара к заказу</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 class="mt-3 mb-3" th:text="'Добавить товар к заказу: ' + ${orderId}"></h3>
+    <form class="needs-validation" style="max-width: 50vw" method="POST" th:action="@{/orders/add-product}"
+          th:object="${orderProductForm}">
+        <input type="hidden" name="orderId" th:value="${orderId}">
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <select class="form-select" name="productId" id="productTitle" required>
+                        <option selected th:value="${null}">Выберите товар</option>
+                        <option
+                                th:each="product : ${products}"
+                                th:value="${product.getId()}"
+                                th:text="${product.getTitle()}">
+                        </option>
+                    </select>
+                    <label for="productTitle">Название товара</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="quantity" type="number" class="form-control" id="quantity" value="10"
+                           placeholder="Количество" required>
+                    <label for="quantity">Количество</label>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 row g-2">
+            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

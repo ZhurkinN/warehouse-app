@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование товара</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 class="mt-3 mb-3" th:text="'Изменить данные о товаре ' + ${product.getTitle()}"></h3>
+    <form class="needs-validation" style="max-width: 50vw" method="POST" th:action="@{/products/update}"
+          th:object="${productForm}">
+        <input type="hidden" name="id"
+               th:value="${product.getId()}">
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="title" th:value="${product.getTitle()}" type="text" class="form-control" id="name"
+                           placeholder="Название" required>
+                    <label for="name">Название</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="category" th:value="${product.getCategory()}" type="text" class="form-control"
+                           id="category"
+                           placeholder="Категория" required>
+                    <label for="category">Категория</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="description" th:value="${product.getDescription()}" type="text" class="form-control"
+                           id="description" placeholder="Описание" required>
+                    <label for="description">Описание</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="warehousePosition" th:value="${product.getWarehousePosition()}" type="text"
+                           class="form-control"
+                           id="position" placeholder="Позиция на складе" required>
+                    <label for="position">Позиция на складе</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="measureUnit" th:value="${product.getMeasureUnit()}" type="text" class="form-control"
+                           id="measure" placeholder="Ед. измерения" list="unit" required>
+                    <datalist id="unit">
+                        <option value="шт."></option>
+                        <option value="кг."></option>
+                        <option value="гр."></option>
+                        <option value="л."></option>
+                        <option value="мл."></option>
+                    </datalist>
+                    <label for="measure">Ед. измерения</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="price" th:value="${product.getPrice()}" type="number" class="form-control"
+                           id="price" placeholder="Цена за штуку" required>
+                    <label for="price">Цена за штуку</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="quantityLeft" th:value="${product.getQuantityLeft()}" type="number"
+                           class="form-control" id="quantity" placeholder="Осталось на складе" required>
+                    <label for="quantity">Осталось на складе</label>
+                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                </div>
+            </div>
+            <div class="mt-3 row g-2">
+                <button type="submit" class="btn btn-primary">Обновить</button>
+                <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

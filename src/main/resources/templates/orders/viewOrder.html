@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о заказе</title>
+</head>
+<body>
+<form layout:fragment="content">
+    <div>
+        <h3 th:text="'Информация о заказе: ' + ${order.getId()}"></h3>
+        <form class="row g-1">
+            <div class="mb-2 row">
+                <label for="description" class="col-sm-2 col-form-label no-border">Описание:</label>
+                <div class="col-sm-10">
+                    <p th:text="${order.getDescription()}" class="form-control-plaintext" id="description">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="contactNumber" class="col-sm-2 col-form-label">Контактный номер:</label>
+                <div class="col-sm-10">
+                    <p th:text="${order.getContactNumber()}" class="form-control-plaintext" id="contactNumber">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="isApproved" class="col-sm-2 col-form-label">Подтвержден:</label>
+                <div class="col-sm-10">
+                    <p th:text="${order.getIsApproved()}" class="form-control-plaintext" id="isApproved">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="date" class="col-sm-2 col-form-label"> Дата создания:</label>
+                <div class="col-sm-10">
+                    <p th:text="${order.getCreatedWhen()}" class="form-control-plaintext" id="date">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="assistant" class="col-sm-2 col-form-label">Ассистент:</label>
+                <div class="col-sm-10">
+                    <p th:text="${userRepository.findById(order.getAssistantId()).orElseThrow().getLogin()}"
+                       class="form-control-plaintext" id="assistant">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="manager" class="col-sm-2 col-form-label">Торговый представитель:</label>
+                <div class="col-sm-10">
+                    <p th:text="${userRepository.findById(order.getManagerId()).orElseThrow().getLogin()}"
+                       class="form-control-plaintext" id="manager">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="type" class="col-sm-2 col-form-label">Тип заказа:</label>
+                <div class="col-sm-10">
+                    <p th:text="${typeRepository.findById(order.getOrderTypeId()).orElseThrow().getOrderName()}"
+                       class="form-control-plaintext" id="type">
+                </div>
+            </div>
+            <div class="mb-2 row">
+                <label for="status" class="col-sm-2 col-form-label">Статус выполнения:</label>
+                <div class="col-sm-10">
+                    <p th:text="${statusRepository.findById(order.getStatusTypeId()).orElseThrow().getStatusName()}"
+                       class="form-control-plaintext" id="status">
+                </div>
+            </div>
+        </form>
+        <hr class="hr"/>
+        <form class="row g-1">
+            <h4 class="mt-3 mb-3" th:text="'Информация о товарах'"></h4>
+                <div th:each="product : ${products}">
+                    <div class="mb-2 row">
+                        <label for="title" class="col-sm-2 col-form-label">Название:</label>
+                        <div class="col-sm-10">
+                            <a class="text-link text-blue" th:href="'/products/' + ${product.getId()}"
+                               th:text="${product.getTitle()}" id="title"></a>
+                        </div>
+                    </div>
+                    <div class="mb-2 row">
+                        <label for="category" class="col-sm-2 col-form-label">Категория:</label>
+                        <div class="col-sm-10">
+                            <p th:text="${product.getCategory()}" class="form-control-plaintext" id="category">
+                        </div>
+                    </div>
+                    <div class="mb-2 row">
+                        <label for="price" class="col-sm-2 col-form-label">Цена за шт.:</label>
+                        <div class="col-sm-10">
+                            <p th:text="${product.getPrice()}" class="form-control-plaintext" id="price">
+                        </div>
+                    </div>
+                    <div class="mb-2 row">
+                        <label for="quantity" class="col-sm-2 col-form-label">Осталось на складе:</label>
+                        <div class="col-sm-10">
+                            <p th:text="${product.getQuantityLeft()}" class="form-control-plaintext" id="quantity">
+                        </div>
+                    </div>
+                    <div class="mb-2 row">
+                        <label for="warehousePosition" class="col-sm-2 col-form-label">Позиция на складе:</label>
+                        <div class="col-sm-10">
+                            <p th:text="${product.getWarehousePosition()}" class="form-control-plaintext" id="warehousePosition">
+                        </div>
+                    </div>
+                    <hr class="hr"/>
+                </div>
+        </form>
+        <div class="mt-2">
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<header xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        th:fragment="header">
+    <nav class="navbar navbar-expand-md fixed-top" style="background-color: #4dc76d">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" style="color: white">SmartInventory</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li sec:authorize="isAuthenticated() && (hasRole('MANAGER') || hasRole('ASSISTANT'))"
+                        class="nav-item">
+                        <a class="nav-link" style="color: #ffffff" aria-current="page" th:href="'/orders/history/' + ${#authentication.getPrincipal().getUserId()}">Ваши
+                            заказы</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated() && (hasRole('MANAGER') || hasRole('MODERATOR'))"
+                        class="nav-item">
+                        <a class="nav-link" style="color: #ffffff" aria-current="page" href="/orders">Все заказы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" style="color: white" aria-current="page" href="/products">Товары
+                            склада</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: #ffffff" aria-current="page" href="/providers">Наши
+                            поставщики</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" style="color: #ffffff" aria-current="page" href="/users">Пользователи
+                            платформы</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated() && hasRole('WORKER')" class="nav-item">
+                        <a class="nav-link" style="color: #ffffff" aria-current="page" th:href="'/orders/available/' + ${#authentication.getPrincipal().getUserId()}">Доступные для
+                            работы заказы</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated() && hasRole('WORKER')" class="nav-item">
+                        <a class="nav-link" style="color: #ffffff" aria-current="page" href="/order-details">Ваши заказы</a>
+                    </li>
+                </ul>
+                    <form class="d-flex" sec:authorize="!isAuthenticated()">
+                        <a href="/login" class="btn btn-primary" role="button" aria-disabled="true">Войти</a>
+                    </form>
+                    <form class="d-flex" sec:authorize="isAuthenticated()">
+                        <a href="/logout" class="btn btn-primary" role="button" aria-disabled="true">Выйти</a>
+                    </form>
+            </div>
+        </div>
+    </nav>
+</header>

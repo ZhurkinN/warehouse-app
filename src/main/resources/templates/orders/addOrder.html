@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление заказа</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h3 class="mt-3 mb-3">Новый заказ</h3>
+    <form class="needs-validation" style="max-width: 50vw" method="POST" th:action="@{/orders/add}"
+          th:object="${orderForm}">
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="description" type="text" class="form-control" id="description" placeholder="Описание"
+                           required>
+                    <label for="description">Описание</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="contactNumber" type="text" class="form-control" id="contactNumber" placeholder="Контактный номер"
+                           required>
+                    <label for="contactNumber">Контактный номер</label>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input type="radio" id="import" name="orderTypeId" value="1" checked="checked"> Погрузка<br>
+                    <input type="radio" id="export" name="orderTypeId" value="2"> Сборка<br>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <select name="login" th:value="login">
+                        <option th:each="assistant :${assistants}"
+                                th:text="${assistant}">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md" hidden>
+            <div class="form-floating">
+                <input name="managerId" type="text" class="form-control" id="managerId" th:value="${#authentication.getPrincipal().getUserId()}" placeholder="managerId"
+                       required hidden>
+            </div>
+        </div>
+
+        <div class="mt-3 row g-2">
+            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

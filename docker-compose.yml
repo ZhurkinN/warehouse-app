@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  app:
+    container_name: "java-app-container"
+    build: ./
+    depends_on:
+      - mysql
+    ports:
+      - "8090:8090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/warehouse
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=g12nokona
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+  mysql:
+    container_name: "mysql-container"
+    image: mysql
+    restart: always
+    ports:
+      - "330:330"
+    environment:
+      MYSQL_DATABASE: warehouse
+      MYSQL_PASSWORD: g12nokona
+      MYSQL_ROOT_PASSWORD: g12nokona
