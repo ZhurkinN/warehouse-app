@@ -21,58 +21,32 @@
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <input name="category" type="text" class="form-control" id="category" placeholder="Категория"
+                    <input name="contactNumber" type="text" class="form-control" id="contactNumber" placeholder="Контактный номер"
                            required>
-                    <label for="category">Категория</label>
+                    <label for="contactNumber">Контактный номер</label>
                 </div>
             </div>
         </div>
         <div class="mt-3 row g-2">
             <div class="col-md">
                 <div class="form-floating">
-                    <input name="description1" type="text" class="form-control" id="description1" placeholder="Описание"
-                           required>
-                    <label for="description1">Описание</label>
+                    <input type="radio" id="import" name="orderTypeId" value="1" checked="checked"> Погрузка<br>
+                    <input type="radio" id="export" name="orderTypeId" value="2"> Сборка<br>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <input name="warehousePosition" type="text"
-                           class="form-control" id="warehouse-position" placeholder="Позиция на складе" required>
-                    <label for="warehouse-position">Позиция на складе</label>
-                </div>
-            </div>
-        </div>
-        <div class="mt-3 row g-2">
-            <div class="col-md">
-                <div class="form-floating">
-                    <input name="measureUnit" type="text" class="form-control" id="measure" placeholder="Ед. измерения"
-                           required list="unit">
-                    <datalist id="unit">
-                        <option value="шт."></option>
-                        <option value="кг."></option>
-                        <option value="гр."></option>
-                        <option value="л."></option>
-                        <option value="мл."></option>
-                    </datalist>
-                    <label for="measure">Ед. измерения</label>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="form-floating">
-                    <input name="price" type="number" value="500"
-                           class="form-control" id="position" placeholder="Цена за штуку" required>
-                    <label for="position">Цена за штуку</label>
+                    <select name="login" th:value="login">
+                        <option th:each="assistant :${assistants}"
+                                th:text="${assistant}">
+                    </select>
                 </div>
             </div>
         </div>
-        <div class="mt-3 row g-2">
-            <div class="col-md">
-                <div class="form-floating">
-                    <input name="quantityLeft" type="number" class="form-control" id="quantity" value="10"
-                           placeholder="Количество товара" required>
-                    <label for="measure">Количество товара</label>
-                </div>
+        <div class="col-md" hidden>
+            <div class="form-floating">
+                <input name="managerId" type="text" class="form-control" id="managerId" th:value="${#authentication.getPrincipal().getUserId()}" placeholder="managerId"
+                       required hidden>
             </div>
         </div>
 

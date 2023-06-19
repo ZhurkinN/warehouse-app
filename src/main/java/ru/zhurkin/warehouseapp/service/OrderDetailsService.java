@@ -1,6 +1,8 @@
 package ru.zhurkin.warehouseapp.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.webjars.NotFoundException;
@@ -34,6 +36,10 @@ public class OrderDetailsService {
 
     public List<OrderDetails> getAll() {
         return orderDetailsRepository.findAll();
+    }
+
+    public Page<OrderDetails> getAll(Pageable pageable) {
+        return orderDetailsRepository.findAll(pageable);
     }
 
     public void delete(Long id) {

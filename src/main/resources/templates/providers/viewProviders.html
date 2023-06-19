@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Наши поставщики</title>
@@ -31,6 +31,7 @@
             </div>
             <div class="col">
                 <a
+                        sec:authorize="isAuthenticated() && hasRole('MODERATOR')"
                         href="/providers/add"
                         class="btn btn-success"
                         role="button"
@@ -63,11 +64,12 @@
                     <td th:text="${provider.getCreatedWhen()}"></td>
                     <td>
                         <ul>
-                            <li th:each="product : ${repository.findAllById(provider.getProductIds())}" th:text="${product.getTitle()}"></li>
+                            <li th:each="product : ${repository.findAllById(provider.getProductIds())}"
+                                th:text="${product.getTitle()}"></li>
                         </ul>
                     </td>
                     <td>
-                        <div>
+                        <div sec:authorize="isAuthenticated() && hasRole('MODERATOR')">
                             <a class="btn btn-sm btn-outline-success"
                                th:href="'/providers/update/' + ${provider.getId()}">Редактировать</a>
                             <a th:if="${!provider.getIsDeleted()}" class="btn btn-sm btn-outline-danger"

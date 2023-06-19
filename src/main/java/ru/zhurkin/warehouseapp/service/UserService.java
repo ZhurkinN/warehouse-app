@@ -2,7 +2,9 @@ package ru.zhurkin.warehouseapp.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 import ru.zhurkin.warehouseapp.model.enums.RoleEnum;
@@ -23,6 +25,7 @@ public class UserService extends GenericService<User> {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public User add(User user) {
@@ -33,6 +36,7 @@ public class UserService extends GenericService<User> {
         if (userRepository.existsByLogin(user.getLogin())) {
             throw new UserAlreadyExistsException(LOGIN_ALREADY_EXISTS);
         }
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -110,4 +114,11 @@ public class UserService extends GenericService<User> {
         userRepository.save(user);
     }
 
+    public List<User> getAllAssistants() {
+        return userRepository.findAllAssistants();
+    }
+
+    public Page<User> findUsers(String login, PageRequest pageRequest) {
+        return userRepository.findAllByLoginContainsIgnoreCaseAndIsDeletedFalse(login, pageRequest);
+    }
 }

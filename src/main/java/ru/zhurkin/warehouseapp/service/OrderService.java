@@ -2,6 +2,7 @@ package ru.zhurkin.warehouseapp.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,7 @@ import ru.zhurkin.warehouseapp.model.order.Order;
 import ru.zhurkin.warehouseapp.model.order.OrderProducts;
 import ru.zhurkin.warehouseapp.model.order.OrderType;
 import ru.zhurkin.warehouseapp.model.product.Product;
+import ru.zhurkin.warehouseapp.model.user.Role;
 import ru.zhurkin.warehouseapp.model.user.User;
 import ru.zhurkin.warehouseapp.repository.order.OrderProductsRepository;
 import ru.zhurkin.warehouseapp.repository.order.OrderRepository;
@@ -25,10 +27,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 
-import static ru.zhurkin.warehouseapp.model.enums.RoleEnum.ASSISTANT;
-import static ru.zhurkin.warehouseapp.model.enums.RoleEnum.SALES_MANAGER;
+import static ru.zhurkin.warehouseapp.model.enums.RoleEnum.*;
 import static ru.zhurkin.warehouseapp.support.constant.ResponseMessagesKeeper.*;
 
 @Service
@@ -94,7 +94,7 @@ public class OrderService extends GenericService<Order> {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(ORDER_NOT_FOUND));
         boolean isDeleted = false;
-        if (orderRepository.canSoftDeleteOrder(id) == 1) {
+        if (orderRepository.canSoftDeleteOrder(id) == 0L) {
             order.setIsDeleted(true);
             order.setDeletedBy("ADMIN");
             order.setDeletedWhen(LocalDateTime.now());
@@ -124,14 +124,10 @@ public class OrderService extends GenericService<Order> {
     }
 
     @Transactional
-    public Order proveOrder(Long assistantId,
-                            Long orderId,
+    public Order proveOrder(Long orderId,
                             Boolean approved) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new NotFoundException(ORDER_NOT_FOUND));
-        if (!Objects.equals(order.getAssistant().getId(), assistantId)) {
-            throw new RolePermissionsException(WRONG_ROLE_PERMISSIONS);
-        }
         if (!order.getIsApproved()) {
             order.setIsApproved(approved);
             if (!approved) {
@@ -212,6 +208,23 @@ public class OrderService extends GenericService<Order> {
         } else {
             throw new RolePermissionsException(WRONG_ROLE_PERMISSIONS);
         }
+        return orders;
+    }
+
+    public Page<Order> getAvailableOrders(Long id,
+                                          PageRequest pageRequest) {
+        Role usersRole = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND))
+                .getRole();
+        Page<Order> orders;
+        if (usersRole.getRoleName().equals(LOADER.getRoleName())) {
+            orders = orderRepository.findAvailableLoadersOrders(pageRequest);
+        } else if (usersRole.getRoleName().equals(COLLECTOR.getRoleName())) {
+            orders = orderRepository.findAvailableCollectorsOrders(pageRequest);
+        } else {
+            throw new RolePermissionsException(WRONG_ROLE_PERMISSIONS);
+        }
+
         return orders;
     }
 }

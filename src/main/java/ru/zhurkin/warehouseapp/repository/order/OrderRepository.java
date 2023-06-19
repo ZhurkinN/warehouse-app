@@ -1,6 +1,7 @@
 package ru.zhurkin.warehouseapp.repository.order;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -39,4 +40,16 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     Page<Order> findAllByManager(User manager,
                                  Pageable pageable);
+
+    @Query(nativeQuery = true,
+            value = "select orders.*" +
+                    "from orders " +
+                    "where is_approved = true and status_type_id = 1 and order_type_id = 1")
+    Page<Order> findAvailableLoadersOrders(PageRequest pageRequest);
+
+    @Query(nativeQuery = true,
+            value = "select orders.*" +
+                    "from orders " +
+                    "where is_approved = true and status_type_id = 1 and order_type_id = 2")
+    Page<Order> findAvailableCollectorsOrders(Pageable pageable);
 }

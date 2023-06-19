@@ -10,12 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.zhurkin.warehouseapp.model.product.Provider;
 import ru.zhurkin.warehouseapp.model.user.User;
 import ru.zhurkin.warehouseapp.repository.user.RoleRepository;
 import ru.zhurkin.warehouseapp.repository.user.UserRepository;
 import ru.zhurkin.warehouseapp.service.UserService;
-import ru.zhurkin.warehouseapp.support.dto.ProviderBodyDTO;
 import ru.zhurkin.warehouseapp.support.dto.UserBodyDTO;
 import ru.zhurkin.warehouseapp.support.mapper.UserMapper;
 

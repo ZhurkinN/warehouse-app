@@ -13,8 +13,6 @@ import ru.zhurkin.warehouseapp.service.UserService;
 import ru.zhurkin.warehouseapp.support.dto.UserBodyDTO;
 import ru.zhurkin.warehouseapp.support.mapper.UserMapper;
 
-import static ru.zhurkin.warehouseapp.model.enums.RoleEnum.MODERATOR;
-
 @Controller
 @RequiredArgsConstructor
 public class MVCLoginController {
@@ -39,7 +37,7 @@ public class MVCLoginController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm")UserBodyDTO userDto,
+    public String registration(@ModelAttribute("userForm") UserBodyDTO userDto,
                                BindingResult bindingResult) {
         if (userDto.getLogin().equals("moderator") || userRepository.existsByLogin(userDto.getLogin())) {
             bindingResult.rejectValue("login", "error.login", "Пользователь с таким логином уже зарегистрирован");
